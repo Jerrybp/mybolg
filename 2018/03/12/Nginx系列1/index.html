@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Nginx系列(1)概述 | Jerry&#39;s Bolg | 2B青年欢乐多</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,Nginx">
+    <meta name="description" content="Nginx概述及简介   Nginx概述Nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；Nginx可以作为一个HTTP服务器进行网站的发布处理，另外Nginx可以作为反向代理进行负载均衡的实现。 中文文档: http://www.nginx.cn/doc/ Tengine译: http://tengine.taobao.o">
+<meta name="keywords" content="Linux,Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx系列(1)概述">
+<meta property="og:url" content="http://oleaster.cn/2018/03/12/Nginx系列1/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Bolg">
+<meta property="og:description" content="Nginx概述及简介   Nginx概述Nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；Nginx可以作为一个HTTP服务器进行网站的发布处理，另外Nginx可以作为反向代理进行负载均衡的实现。 中文文档: http://www.nginx.cn/doc/ Tengine译: http://tengine.taobao.o">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/5.png">
+<meta property="og:updated_time" content="2018-03-28T07:29:52.869Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx系列(1)概述">
+<meta name="twitter:description" content="Nginx概述及简介   Nginx概述Nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；Nginx可以作为一个HTTP服务器进行网站的发布处理，另外Nginx可以作为反向代理进行负载均衡的实现。 中文文档: http://www.nginx.cn/doc/ Tengine译: http://tengine.taobao.o">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/1.png">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+	
+	
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Q·Man</h5>
+          <a href="mailto:pinggrubby@hotmail.com" title="pinggrubby@hotmail.com" class="mail">pinggrubby@hotmail.com</a>
+			<h6 class="subtitle">
+				2B青年欢乐多
+			</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章列表
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类目
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.kernel.org/" target="_blank" >
+                <i class="icon icon-lg icon-linux"></i>
+                Linux Kernel
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.centos.org/" target="_blank" >
+                <i class="icon icon-lg icon-server"></i>
+                Centos
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.debian.org/" target="_blank" >
+                <i class="icon icon-lg icon-tint"></i>
+                Debian
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.ubuntu.com/index_kylin" target="_blank" >
+                <i class="icon icon-lg icon-braille"></i>
+                Ubuntu
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.redhat.com/zh" target="_blank" >
+                <i class="icon icon-lg icon-cube"></i>
+                RerHat
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://distrowatch.com/" target="_blank" >
+                <i class="icon icon-lg icon-list-ol"></i>
+                Linux排行
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://nginx.org/" target="_blank" >
+                <i class="icon icon-lg icon-google"></i>
+                Nginx
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.gnu.org/licenses/licenses.html" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GPL
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/more"  >
+                <i class="icon icon-lg icon-codepen"></i>
+                更多
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-address-card"></i>
+                关于
+				
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx系列(1)概述</div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx系列(1)概述</h1>
+       
+    </div>
+
+    
+
+<div id="player8" class="aplayer"></div>
+</header>
+
+
+<div class="container body-wrap">
+    
+<link rel="stylesheet" href="/css/APlayer.min.css?v=1.7.2">
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Nginx概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">Nginx概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-反向代理"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1. 反向代理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-负载均衡"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2. 负载均衡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-Nginx特点"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3. Nginx特点</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Nginx系列1"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx系列(1)概述</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-03-12 10:46:12" datetime="2018-03-12T02:46:12.000Z"  itemprop="datePublished">2018-03-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <font color="#0099ff" size="12" face="黑体">Nginx概述及简介</font>
+
+<hr>
+<h1 id="Nginx概述"><a href="#Nginx概述" class="headerlink" title="Nginx概述"></a>Nginx概述</h1><p>Nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；<br>Nginx可以作为一个HTTP服务器进行网站的发布处理，另外Nginx可以作为反向代理进行负载均衡的实现。<br><strong> 中文文档:</strong> <a href="http://www.nginx.cn/doc/" target="_blank" rel="noopener">http://www.nginx.cn/doc/</a><br><strong> Tengine译:</strong> <a href="http://tengine.taobao.org/nginx_docs/cn/" target="_blank" rel="noopener">http://tengine.taobao.org/nginx_docs/cn/</a><br><strong> 官方网站:</strong> <a href="http://nginx.org/" target="_blank" rel="noopener">http://nginx.org/</a><br>这里主要通过三个方面简单介绍Nginx</p>
+<ul>
+<li>反向代理</li>
+<li>负载均衡</li>
+<li>Nginx特点</li>
+</ul>
+<h2 id="1-反向代理"><a href="#1-反向代理" class="headerlink" title="1. 反向代理"></a>1. 反向代理</h2><p>关于代理</p>
+<p>说到代理，首先我们要明确一个概念，所谓代理就是一个代表、一个渠道；</p>
+<p>此时就设计到两个角色，一个是被代理角色，一个是目标角色，被代理角色通过这个代理访问目标角色完成一些任务的过程称为代理操作过程；<br>如同生活中的专卖店~客人到adidas专卖店买了一双鞋，这个专卖店就是代理，被代理角色就是adidas厂家，目标角色就是用户<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/1.png" alt="图1" title="">
+                </div>
+                <div class="image-caption">图1</div>
+            </figure></p>
+<p>正向代理</p>
+<p>说反向代理之前，我们先看看正向代理，正向代理也是大家最常接触的到的代理模式，我们会从两个方面来说关于正向代理的处理模式，分别从软件方面和生活方面来解释一下什么叫正向代理</p>
+<p>在如今的网络环境下，我们如果由于技术需要要去访问国外的某些网站，此时你会发现位于国外的某网站我们通过浏览器是没有办法访问的，此时大家可能都会用一个操作FQ进行访问，FQ的方式主要是找到一个可以访问国外网站的代理服务器，我们将请求发送给代理服务器，代理服务器去访问国外的网站，然后将访问到的数据传递给我们！</p>
+<p>上述这样的代理模式称为正向代理，正向代理最大的特点是客户端非常明确要访问的服务器地址；服务器只清楚请求来自哪个代理服务器，而不清楚来自哪个具体的客户端；正向代理模式屏蔽或者隐藏了真实客户端信息。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/2.png" alt="图1.1" title="">
+                </div>
+                <div class="image-caption">图1.1</div>
+            </figure></p>
+<p>反向代理</p>
+<p>明白了什么是正向代理，我们继续看关于反向代理的处理方式，举例如我大天朝的某宝网站，每天同时连接到网站的访问人数已经爆表，单个服务器远远不能满足人民日益增长的购买欲望了，此时就出现了一个大家耳熟能详的名词：分布式部署；也就是通过部署多台服务器来解决访问人数限制的问题；某宝网站中大部分功能也是直接使用Nginx进行反向代理实现的，并且通过封装Nginx和其他的组件之后起了个高大上的名字：Tengine，<br>有兴趣的童鞋可以访问Tengine的官网查看具体的信息：<a href="http://tengine.taobao.org/" target="_blank" rel="noopener">http://tengine.taobao.org/</a><br>那么反向代理具体是通过什么样的方式实现的分布式的集群操作呢，我们先看一个示意图：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/3.png" alt="图1.2" title="">
+                </div>
+                <div class="image-caption">图1.2</div>
+            </figure></p>
+<p>通过上述的图解大家就可以看清楚了，多个客户端给服务器发送的请求，Nginx服务器接收到之后，按照一定的规则分发给了后端的业务处理服务器进行处理了。此时~请求的来源也就是客户端是明确的，但是请求具体由哪台服务器处理的并不明确了，Nginx扮演的就是一个反向代理角色</p>
+<p>反向代理，主要用于服务器集群分布式部署的情况下，反向代理隐藏了服务器的信息！</p>
+<p>项目场景</p>
+<p>通常情况下，我们在实际项目操作时，正向代理和反向代理很有可能会存在在一个应用场景中，正向代理代理客户端的请求去访问目标服务器，目标服务器是一个反向单利服务器，反向代理了多台真实的业务处理服务器。具体的拓扑图如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/4.png" alt="图1.3" title="">
+                </div>
+                <div class="image-caption">图1.3</div>
+            </figure></p>
+<h2 id="2-负载均衡"><a href="#2-负载均衡" class="headerlink" title="2. 负载均衡"></a>2. 负载均衡</h2><p>我们已经明确了所谓代理服务器的概念，那么接下来，Nginx扮演了反向代理服务器的角色，它是以依据什么样的规则进行请求分发的呢？不用的项目应用场景，分发的规则是否可以控制呢？</p>
+<p>这里提到的客户端发送的、Nginx反向代理服务器接收到的请求数量，就是我们说的负载量</p>
+<p>请求数量按照一定的规则进行分发到不同的服务器处理的规则，就是一种均衡规则</p>
+<p>所以~将服务器接收到的请求按照规则分发的过程，称为负载均衡。</p>
+<p>负载均衡在实际项目操作过程中，有硬件负载均衡和软件负载均衡两种，硬件负载均衡也称为硬负载，如F5负载均衡，相对造价昂贵成本较高，但是数据的稳定性安全性等等有非常好的保障，如中国移动中国联通这样的公司才会选择硬负载进行操作；更多的公司考虑到成本原因，会选择使用软件负载均衡，软件负载均衡是利用现有的技术结合主机硬件实现的一种消息队列分发机制</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/nginx/5.png" alt="图1" title="">
+                </div>
+                <div class="image-caption">图1</div>
+            </figure>
+<p><strong> Nginx支持的负载均衡调度算法方式如下：</strong></p>
+<ul>
+<li><p>weight轮询（默认）：接收到的请求按照顺序逐一分配到不同的后端服务器，即使在使用过程中，某一台后端服务器宕机，Nginx会自动将该服务器剔除出队列，请求受理情况不会受到任何影响。 这种方式下，可以给不同的后端服务器设置一个权重值（weight），用于调整不同的服务器上请求的分配率；权重数据越大，被分配到请求的几率越大；该权重值，主要是针对实际工作环境中不同的后端服务器硬件配置进行调整的。</p>
+</li>
+<li><p>ip_hash：每个请求按照发起客户端的ip的hash结果进行匹配，这样的算法下一个固定ip地址的客户端总会访问到同一个后端服务器，这也在一定程度上解决了集群部署环境下session共享的问题。</p>
+</li>
+<li><p>fair：智能调整调度算法，动态的根据后端服务器的请求处理到响应的时间进行均衡分配，响应时间短处理效率高的服务器分配到请求的概率高，响应时间长处理效率低的服务器分配到的请求少；结合了前两者的优点的一种调度算法。但是需要注意的是Nginx默认不支持fair算法，如果要使用这种调度算法，请安装upstream_fair模块</p>
+</li>
+<li><p>url_hash：按照访问的url的hash结果分配请求，每个请求的url会指向后端固定的某个服务器，可以在Nginx作为静态服务器的情况下提高缓存效率。同样要注意Nginx默认不支持这种调度算法，要使用的话需要安装Nginx的hash软件包</p>
+</li>
+</ul>
+<h2 id="3-Nginx特点"><a href="#3-Nginx特点" class="headerlink" title="3. Nginx特点"></a>3. Nginx特点</h2><p>1、热部署</p>
+<p>我个人觉得这个很不错。在master管理进程与worker工作进程的分离设计，使的Nginx具有热部署的功能，那么在7×24小时不间断服务的前提下，升级Nginx的可执行文件。也可以在不停止服务的情况下修改配置文件，更换日志文件等功能。</p>
+<p>2、可以高并发连接</p>
+<p>这是一个很重要的一个特性！在这一个互联网快速发展，互联网用户数量不断增加，一些大公司、网站都需要面对高并发请求，如果有一个能够在峰值顶住10万以上并发请求的Server，肯定会得到大家的青睐。理论上，Nginx支持的并发连接上限取决于你的内存，10万远未封顶。</p>
+<p>3、低的内存消耗</p>
+<p>在一般的情况下，10000个非活跃的HTTP Keep-Alive 连接在Nginx中仅消耗2.5M的内存，这也是Nginx支持高并发连接的基础。</p>
+<p>4、处理响应请求很快</p>
+<p>在正常的情况下，单次请求会得到更快的响应。在高峰期，Nginx可以比其他的Web服务器更快的响应请求。</p>
+<p>5、具有很高的可靠性</p>
+<p>Nginx是一个高可靠性的Web服务器，这也是我们为什么选择Nginx的基本条件，现在很多的网站都在使用Nginx，足以说明Nginx的可靠性。高可靠性来自其核心框架代码的优秀设计、模块设计的简单性；并且这些模块都非常的稳定。</p>
+<p>目前总结以上5点的特性，有说的不对的请大家及时反馈，谢谢。</p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-03-28T07:29:52.869Z" itemprop="dateUpdated">2018-03-28 15:29:52</time>
+</span><br>
+
+
+        
+        这里可以写作者留言.<a href="/2018/03/12/Nginx系列1/" target="_blank" rel="external">http://oleaster.cn/2018/03/12/Nginx系列1/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://oleaster.cn">
+            <img src="/img/avatar.jpg" alt="Q·Man">
+            Q·Man
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/12/Nginx系列1/&title=《Nginx系列(1)概述》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/12/Nginx系列1/&title=《Nginx系列(1)概述》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/12/Nginx系列1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(1)概述》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/12/Nginx系列1/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/12/Nginx系列1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/03/13/Nginx系列2/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Nginx系列(2)安装</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/02/09/Linux系统与Windows共享/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">VirtualBox内Linux系统怎样与Windows共享文件夹</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'true' == 'true',
+            appId: "6rQLaNUqzbdwWsUWf1nYcyqO-gzGzoHsz",
+            appKey: "7zLbzdLttc8RFYE01xaflU8C",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script> 
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/demo1.js"></script>
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    </div>
+    <div class="bottom">
+        <p><span>
+		
+		Powered by Q·Man
+		
+		
+		&copy; 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备1234556号-1</a>
+                	
+            </span>
+			 
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/12/Nginx系列1/&title=《Nginx系列(1)概述》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/12/Nginx系列1/&title=《Nginx系列(1)概述》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/12/Nginx系列1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(1)概述》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/12/Nginx系列1/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/12/Nginx系列1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://oleaster.cn/2018/03/12/Nginx系列1/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

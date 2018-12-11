@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Nginx系列(3)日常维护常用命令 | Jerry&#39;s Bolg | 2B青年欢乐多</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,Nginx">
+    <meta name="description" content="Nginx日常维护常用命令 一、简明nginx常用命令  启动 Nginx poechant@ubuntu:sudo ./sbin/nginx   停止 Nginx poechant@ubuntu:sudo ./sbin/nginx -s stoppoechant@ubuntu:sudo ./sbin/nginx -s quit  -s都是采用向 Nginx 发送信号的方式。  Nginx 重载配">
+<meta name="keywords" content="Linux,Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx系列(3)日常维护常用命令">
+<meta property="og:url" content="http://oleaster.cn/2018/03/14/Nginx系列3/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Bolg">
+<meta property="og:description" content="Nginx日常维护常用命令 一、简明nginx常用命令  启动 Nginx poechant@ubuntu:sudo ./sbin/nginx   停止 Nginx poechant@ubuntu:sudo ./sbin/nginx -s stoppoechant@ubuntu:sudo ./sbin/nginx -s quit  -s都是采用向 Nginx 发送信号的方式。  Nginx 重载配">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-28T06:15:40.577Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx系列(3)日常维护常用命令">
+<meta name="twitter:description" content="Nginx日常维护常用命令 一、简明nginx常用命令  启动 Nginx poechant@ubuntu:sudo ./sbin/nginx   停止 Nginx poechant@ubuntu:sudo ./sbin/nginx -s stoppoechant@ubuntu:sudo ./sbin/nginx -s quit  -s都是采用向 Nginx 发送信号的方式。  Nginx 重载配">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+	
+	
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Q·Man</h5>
+          <a href="mailto:pinggrubby@hotmail.com" title="pinggrubby@hotmail.com" class="mail">pinggrubby@hotmail.com</a>
+			<h6 class="subtitle">
+				2B青年欢乐多
+			</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章列表
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类目
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.kernel.org/" target="_blank" >
+                <i class="icon icon-lg icon-linux"></i>
+                Linux Kernel
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.centos.org/" target="_blank" >
+                <i class="icon icon-lg icon-server"></i>
+                Centos
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.debian.org/" target="_blank" >
+                <i class="icon icon-lg icon-tint"></i>
+                Debian
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.ubuntu.com/index_kylin" target="_blank" >
+                <i class="icon icon-lg icon-braille"></i>
+                Ubuntu
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.redhat.com/zh" target="_blank" >
+                <i class="icon icon-lg icon-cube"></i>
+                RerHat
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://distrowatch.com/" target="_blank" >
+                <i class="icon icon-lg icon-list-ol"></i>
+                Linux排行
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://nginx.org/" target="_blank" >
+                <i class="icon icon-lg icon-google"></i>
+                Nginx
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.gnu.org/licenses/licenses.html" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GPL
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/more"  >
+                <i class="icon icon-lg icon-codepen"></i>
+                更多
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-address-card"></i>
+                关于
+				
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx系列(3)日常维护常用命令</div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx系列(3)日常维护常用命令</h1>
+       
+    </div>
+
+    
+
+<div id="player8" class="aplayer"></div>
+</header>
+
+
+<div class="container body-wrap">
+    
+<link rel="stylesheet" href="/css/APlayer.min.css?v=1.7.2">
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx日常维护常用命令"><span class="post-toc-number">1.</span> <span class="post-toc-text">Nginx日常维护常用命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#启动-Nginx"><span class="post-toc-number"></span> <span class="post-toc-text">启动 Nginx</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#停止-Nginx"><span class="post-toc-number"></span> <span class="post-toc-text">停止 Nginx</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Nginx-重载配置"><span class="post-toc-number"></span> <span class="post-toc-text">Nginx 重载配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#指定配置文件"><span class="post-toc-number"></span> <span class="post-toc-text">指定配置文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看-Nginx-版本"><span class="post-toc-number"></span> <span class="post-toc-text">查看 Nginx 版本</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#检查配置文件是否正确"><span class="post-toc-number"></span> <span class="post-toc-text">检查配置文件是否正确</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#显示帮助信息"><span class="post-toc-number"></span> <span class="post-toc-text">显示帮助信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#停止操作"><span class="post-toc-number"></span> <span class="post-toc-text">停止操作</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#平滑升级"><span class="post-toc-number"></span> <span class="post-toc-text">平滑升级</span></a>
+        </nav>
+    </aside>
+
+
+<article id="post-Nginx系列3"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx系列(3)日常维护常用命令</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-03-14 10:46:12" datetime="2018-03-14T02:46:12.000Z"  itemprop="datePublished">2018-03-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Nginx日常维护常用命令"><a href="#Nginx日常维护常用命令" class="headerlink" title="Nginx日常维护常用命令"></a><font color="#0099ff" size="12" face="黑体">Nginx日常维护常用命令</font></h2><p><strong> 一、简明nginx常用命令 </strong></p>
+<h1 id="启动-Nginx"><a href="#启动-Nginx" class="headerlink" title="启动 Nginx"></a>启动 Nginx</h1><blockquote>
+<p>poechant@ubuntu:sudo ./sbin/nginx</p>
+</blockquote>
+<hr>
+<h1 id="停止-Nginx"><a href="#停止-Nginx" class="headerlink" title="停止 Nginx"></a>停止 Nginx</h1><blockquote>
+<p>poechant@ubuntu:sudo ./sbin/nginx -s stop<br>poechant@ubuntu:sudo ./sbin/nginx -s quit</p>
+</blockquote>
+<p>-s都是采用向 Nginx 发送信号的方式。</p>
+<hr>
+<h1 id="Nginx-重载配置"><a href="#Nginx-重载配置" class="headerlink" title="Nginx 重载配置"></a>Nginx 重载配置</h1><blockquote>
+<p>poechant@ubuntu:sudo ./sbin/nginx -s reload<br>上述是采用向 Nginx 发送信号的方式，或者使用：<br>poechant@ubuntu:service nginx reload</p>
+</blockquote>
+<hr>
+<h1 id="指定配置文件"><a href="#指定配置文件" class="headerlink" title="指定配置文件"></a>指定配置文件</h1><blockquote>
+<p>poechant@ubuntu:sudo ./sbin/nginx -c /usr/local/nginx/conf/nginx.conf</p>
+</blockquote>
+<p>-c表示configuration，指定配置文件。</p>
+<hr>
+<h1 id="查看-Nginx-版本"><a href="#查看-Nginx-版本" class="headerlink" title="查看 Nginx 版本"></a>查看 Nginx 版本</h1><p>有两种可以查看 Nginx 的版本信息的参数。第一种如下：</p>
+<blockquote>
+<p>poechant@ubuntu:/usr/local/nginx$ ./sbin/nginx -v<br>nginx: nginx version: nginx/1.0.0</p>
+</blockquote>
+<p>另一种显示的是详细的版本信息：</p>
+<blockquote>
+<p>poechant@ubuntu:/usr/local/nginx$ ./sbin/nginx -V<br>nginx: nginx version: nginx/1.0.0<br>nginx: built by gcc 4.3.3 (Ubuntu 4.3.3-5ubuntu4)<br>nginx: TLS SNI support enabled<br>nginx: configure arguments: –with-http_ssl_module –with-openssl=/home/luming/openssl-1.0.0d/</p>
+</blockquote>
+<hr>
+<h1 id="检查配置文件是否正确"><a href="#检查配置文件是否正确" class="headerlink" title="检查配置文件是否正确"></a>检查配置文件是否正确</h1><blockquote>
+<p>poechant@ubuntu:/usr/local/nginx$ ./sbin/nginx -t<br>nginx: [alert] could not open error log file: open() “/usr/local/nginx/logs/error.log” failed (13: Permission denied)<br>nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok<br>2012/01/09 16:45:09 [emerg] 23898#0: open() “/usr/local/nginx/logs/nginx.pid” failed (13: Permission denied)<br>nginx: configuration file /usr/local/nginx/conf/nginx.conf test failed</p>
+</blockquote>
+<p>如果出现如上的提示信息，表示没有访问错误日志文件和进程，可以sudo（super user do）一下：</p>
+<blockquote>
+<p>poerchant@ubuntu:/usr/local/nginx$ sudo ./sbin/nginx -t<br>nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok<br>nginx: configuration file /usr/local/nginx/conf/nginx.conf test is successful</p>
+</blockquote>
+<p>如果显示如上，则表示配置文件正确。否则，会有相关提示。</p>
+<hr>
+<h1 id="显示帮助信息"><a href="#显示帮助信息" class="headerlink" title="显示帮助信息"></a>显示帮助信息</h1><blockquote>
+<p>poechant@ubuntu:/user/local/nginx$ ./sbin/nginx -h</p>
+</blockquote>
+<p>或者：</p>
+<blockquote>
+<p>poechant@ubuntu:/user/local/nginx$ ./sbin/nginx -?</p>
+</blockquote>
+<p>以上这些涵盖了 Nginx 日常维护的所有基本操作.</p>
+<hr>
+<p><strong> 二、在Linux下通过master发送信号的相关命令 </strong></p>
+<h1 id="停止操作"><a href="#停止操作" class="headerlink" title="停止操作"></a>停止操作</h1><p>停止操作是通过向nginx进程发送信号（什么是信号请参阅linux文章）来进行的</p>
+<ol>
+<li>查询nginx主进程号<br>ps -ef | grep nginx<br>在进程列表里面找master进程，它的编号就是主进程号了。</li>
+<li><p>检查是否已经安装有nginx及对应目录：<br>[root@localhost ~]# find /|grep nginx.conf<br>/etc/nginx/conf.d<br>/etc/nginx/conf.d/example_ssl.conf<br>/etc/nginx/conf.d/default.conf<br>/etc/nginx/nginx.conf<br> 还可以用以下两个命令，找安装的路径<br> [root@localhost ~]# netstat -tnlp|grep nginx<br> 然后看到一行记录，复制最后的一个数据（进程ID）<br> ps -aux |grep 进程ID<br> 就可以看到nginx的启动方式了。</p>
+</li>
+<li><p>发送信号<br>从容停止Nginx：<br>kill -QUIT 主进程号<br>快速停止Nginx：<br>kill -TERM 主进程号<br>强制停止Nginx：<br>pkill -9 nginx<br>另外， 若在nginx.conf配置了pid文件存放路径则该文件存放的就是Nginx主进程号，如果没指定则放在nginx的logs目录下。有了pid文 件，我们就不用先查询Nginx的主进程号，而直接向Nginx发送信号了，命令如下：<br>kill -信号类型 ‘/usr/nginx/logs/nginx.pid’ <code>(推荐)</code><br><strong> 平滑重启</strong><br>如果更改了配置就要重启Nginx，要先关闭Nginx再打开？不是的，可以向Nginx 发送信号，平滑重启。<br>平滑重启命令：<br>kill -HUP 住进称号或进程号文件路径<br>或者使用<br>复制代码 代码如下:<br><strong><em> nginx -s reload </em></strong> <code>(推荐)</code><br>或<br>/usr/nginx/sbin/nginx -s reload<br>注意，修改了配置文件后最好先检查一下修改过的配置文件是否正 确，以免重启后Nginx出现错误影响服务器稳定运行。判断Nginx配置是否正确命令如下：<br>nginx -t -c /usr/nginx/conf/nginx.conf<br>或者<br><strong><em> nginx -t </em></strong> <code>(推荐)</code><br>或<br>/usr/nginx/sbin/nginx -t</p>
+</li>
+</ol>
+<hr>
+<h1 id="平滑升级"><a href="#平滑升级" class="headerlink" title="平滑升级"></a>平滑升级</h1><p>如果服务器正在运行的Nginx要进行升级、添加或删除模块时，我们需 要停掉服务器并做相应修改，这样服务器就要在一段时间内停止服务，Nginx可以在不停机的情况下进行各种升级动作而不影响服务器运行。<br>步骤1：<br>如果升级Nginx程序，先用新程序替换旧程序文件，编译安装的话新程序直接编译到Nginx安装目录中。<br>步骤2：执行命令<br>kill -USR2 旧版程序的主进程号或进程文件名<br>此时旧的Nginx主进程将会把自己的进程文件改名为.oldbin，然后执行新版 Nginx。新旧Nginx会同市运行，共同处理请求。<br>这时要逐步停止旧版 Nginx，输入命令：<br>kill -WINCH 旧版主进程号<br>慢慢旧的工作进程就都会随着任务执行完毕而退出，新版的Nginx的工作进程会逐渐取代旧版 工作进程。<br>此时，我们可以决定使用新版还是恢复到旧版。<br>不重载配置启动新/旧工作进程<br>kill -HUP 旧/新版主进程号<br>从容关闭旧/新进程<br>kill -QUIT 旧/新主进程号<br>如果此时报错，提示还有进程没有结束就用下面命令先关闭旧/新工作进程，再关闭主进程号：<br>kill -TERM 旧/新工作进程号<br>这样下来，如果要恢复到旧版本，只需要上面的几个步 骤都是操作新版主进程号，如果要用新版本就上面的几个步骤都操作旧版主进程号就行了。<br>上面就是Nginx的一些基本的操作，希望以后Nginx能有更好的方法来处理这些操作， 最好是Nginx的命令而不是向Nginx进程发送系统信号。</p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-03-28T06:15:40.577Z" itemprop="dateUpdated">2018-03-28 14:15:40</time>
+</span><br>
+
+
+        
+        这里可以写作者留言.<a href="/2018/03/14/Nginx系列3/" target="_blank" rel="external">http://oleaster.cn/2018/03/14/Nginx系列3/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://oleaster.cn">
+            <img src="/img/avatar.jpg" alt="Q·Man">
+            Q·Man
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/14/Nginx系列3/&title=《Nginx系列(3)日常维护常用命令》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/14/Nginx系列3/&title=《Nginx系列(3)日常维护常用命令》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/14/Nginx系列3/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(3)日常维护常用命令》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/14/Nginx系列3/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/14/Nginx系列3/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/03/15/Nginx系列4/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Nginx系列(4)配置</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/03/13/Nginx系列2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Nginx系列(2)安装</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'true' == 'true',
+            appId: "6rQLaNUqzbdwWsUWf1nYcyqO-gzGzoHsz",
+            appKey: "7zLbzdLttc8RFYE01xaflU8C",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script> 
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/demo1.js"></script>
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    </div>
+    <div class="bottom">
+        <p><span>
+		
+		Powered by Q·Man
+		
+		
+		&copy; 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备1234556号-1</a>
+                	
+            </span>
+			 
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/14/Nginx系列3/&title=《Nginx系列(3)日常维护常用命令》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/14/Nginx系列3/&title=《Nginx系列(3)日常维护常用命令》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/14/Nginx系列3/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(3)日常维护常用命令》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/14/Nginx系列3/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/14/Nginx系列3/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://oleaster.cn/2018/03/14/Nginx系列3/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

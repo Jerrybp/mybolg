@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Nginx系列(7)第三方模块 | Jerry&#39;s Bolg | 2B青年欢乐多</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,Nginx">
+    <meta name="description" content="Nginx模块(二)    整合一些好的第三方模块及  模块文档第三方模块 echo-nginx-module  echo-nginx-module是一个第三方模块，在nginx源码中没有，但是OpenResty中有，它为nginx.conf带来了echo，sleep，time等多个类似bash的强大命令。目前最新版本是v0.61 安装指南参见https://github.com/openrest">
+<meta name="keywords" content="Linux,Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx系列(7)第三方模块">
+<meta property="og:url" content="http://oleaster.cn/2018/03/16/Nginx系列7/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Bolg">
+<meta property="og:description" content="Nginx模块(二)    整合一些好的第三方模块及  模块文档第三方模块 echo-nginx-module  echo-nginx-module是一个第三方模块，在nginx源码中没有，但是OpenResty中有，它为nginx.conf带来了echo，sleep，time等多个类似bash的强大命令。目前最新版本是v0.61 安装指南参见https://github.com/openrest">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.7.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/2.0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/2.1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/22.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/33.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/44.png">
+<meta property="og:updated_time" content="2018-04-03T05:58:16.396Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx系列(7)第三方模块">
+<meta name="twitter:description" content="Nginx模块(二)    整合一些好的第三方模块及  模块文档第三方模块 echo-nginx-module  echo-nginx-module是一个第三方模块，在nginx源码中没有，但是OpenResty中有，它为nginx.conf带来了echo，sleep，time等多个类似bash的强大命令。目前最新版本是v0.61 安装指南参见https://github.com/openrest">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.1.png">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+	
+	
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Q·Man</h5>
+          <a href="mailto:pinggrubby@hotmail.com" title="pinggrubby@hotmail.com" class="mail">pinggrubby@hotmail.com</a>
+			<h6 class="subtitle">
+				2B青年欢乐多
+			</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章列表
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类目
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.kernel.org/" target="_blank" >
+                <i class="icon icon-lg icon-linux"></i>
+                Linux Kernel
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.centos.org/" target="_blank" >
+                <i class="icon icon-lg icon-server"></i>
+                Centos
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.debian.org/" target="_blank" >
+                <i class="icon icon-lg icon-tint"></i>
+                Debian
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.ubuntu.com/index_kylin" target="_blank" >
+                <i class="icon icon-lg icon-braille"></i>
+                Ubuntu
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.redhat.com/zh" target="_blank" >
+                <i class="icon icon-lg icon-cube"></i>
+                RerHat
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://distrowatch.com/" target="_blank" >
+                <i class="icon icon-lg icon-list-ol"></i>
+                Linux排行
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://nginx.org/" target="_blank" >
+                <i class="icon icon-lg icon-google"></i>
+                Nginx
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.gnu.org/licenses/licenses.html" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GPL
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/more"  >
+                <i class="icon icon-lg icon-codepen"></i>
+                更多
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-address-card"></i>
+                关于
+				
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx系列(7)第三方模块</div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx系列(7)第三方模块</h1>
+       
+    </div>
+
+    
+
+<div id="player8" class="aplayer"></div>
+</header>
+
+
+<div class="container body-wrap">
+    
+<link rel="stylesheet" href="/css/APlayer.min.css?v=1.7.2">
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#模块文档"><span class="post-toc-number">1.</span> <span class="post-toc-text">模块文档</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第三方模块"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">第三方模块</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Nginx系列7"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx系列(7)第三方模块</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-03-16 10:46:12" datetime="2018-03-16T02:46:12.000Z"  itemprop="datePublished">2018-03-16</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <font color="#0099ff" size="12" face="黑体">Nginx模块(二)</font>
+
+<blockquote>
+</blockquote>
+<p>整合一些好的第三方模块及</p>
+<hr>
+<h1 id="模块文档"><a href="#模块文档" class="headerlink" title="模块文档"></a>模块文档</h1><h2 id="第三方模块"><a href="#第三方模块" class="headerlink" title="第三方模块"></a>第三方模块</h2><ol>
+<li>echo-nginx-module</li>
+</ol>
+<p>echo-nginx-module是一个第三方模块，在nginx源码中没有，但是OpenResty中有，它为nginx.conf带来了echo，sleep，time等多个类似bash的强大命令。<br>目前最新版本是v0.61</p>
+<p>安装指南参见<br><a href="https://github.com/openresty/echo-nginx-module#installation" target="_blank" rel="noopener">https://github.com/openresty/echo-nginx-module#installation</a></p>
+<p><strong> 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">erver &#123;  </span><br><span class="line">    listen 8081;  </span><br><span class="line">    server_name localhost;  </span><br><span class="line">  </span><br><span class="line">    location /test/ &#123;  </span><br><span class="line">        set $foo hello;  </span><br><span class="line">        echo &quot;foo: $foo&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    location /test1/ &#123;  </span><br><span class="line">        set $first &quot;hello &quot;;  </span><br><span class="line">        echo &quot;$&#123;first&#125;world&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    location /foo/ &#123;  </span><br><span class="line">        echo &quot;foo = [$foo]&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    location /bar/ &#123;  </span><br><span class="line">        set $foo 32;   </span><br><span class="line">        echo &quot;bar = [$foo]&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong> 下载源码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src</span><br><span class="line">git clone https://github.com/openresty/echo-nginx-module.git</span><br><span class="line"></span><br><span class="line">cd nginx-1.12.2</span><br><span class="line">./configure --with-http_ssl_module \</span><br><span class="line">--with-pcre=/usr/local/src/pcre-8.41 \</span><br><span class="line">--with-zlib=/usr/local/src/zlib-1.2.11 \</span><br><span class="line">--with-openssl=/usr/local/src/openssl-1.1.0g \</span><br><span class="line">--with-http_stub_status_module \</span><br><span class="line">--add-module=/usr/local/src/ngx_cache_purge \</span><br><span class="line">--add-module=/usr/local/src/ngx_req_status \</span><br><span class="line">--add-module=/usr/local/src/echo-nginx-module</span><br><span class="line">make</span><br></pre></td></tr></table></figure></p>
+<p>这个例子也给出了OpenResty中的模块如何编译进社区最新版nginx中去的方法。我起初看到OpenResty中的模块目录比较怪异，以为还需要自己调整目录结构再整合到nginx中，其实是没有必要的。</p>
+<p>安装完成之后，检查nginx.conf的完整性并重启nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -t</span><br><span class="line">/usr/local/nginx/sbin/nginx -s stop</span><br><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.1.png" alt="图1" title="">
+                </div>
+                <div class="image-caption">图1</div>
+            </figure>
+<p>测试请求</p>
+<ol>
+<li><p>curl -v ‘<a href="http://localhost:8081/test/&#39;" target="_blank" rel="noopener">http://localhost:8081/test/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.2.png" alt="测试结果1" title="">
+                </div>
+                <div class="image-caption">测试结果1</div>
+            </figure>
+</li>
+<li><p>curl -v ‘<a href="http://localhost:8081/test1/&#39;" target="_blank" rel="noopener">http://localhost:8081/test1/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.3.png" alt="测试结果2" title="">
+                </div>
+                <div class="image-caption">测试结果2</div>
+            </figure>
+</li>
+<li><p>curl -v ‘<a href="http://localhost:8081/foo/&#39;" target="_blank" rel="noopener">http://localhost:8081/foo/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.4.png" alt="测试结果3" title="">
+                </div>
+                <div class="image-caption">测试结果3</div>
+            </figure>
+</li>
+<li><p>curl -v ‘<a href="http://localhost:8081/bar/&#39;" target="_blank" rel="noopener">http://localhost:8081/bar/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.5.png" alt="测试结果4" title="">
+                </div>
+                <div class="image-caption">测试结果4</div>
+            </figure>
+</li>
+</ol>
+<p>特殊说明</p>
+<p>上面仅是最基本的用法，还有很多高级的用法.</p>
+<hr>
+<p><strong> 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line">    listen 8082;  </span><br><span class="line">    server_name localhost;  </span><br><span class="line">  </span><br><span class="line">    location /foo/ &#123;  </span><br><span class="line">        set $a hello;  </span><br><span class="line">        echo_exec /bar/;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    location /foo1/ &#123;  </span><br><span class="line">        set $a hello;  </span><br><span class="line">        rewrite ^ /bar/;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    location /bar/ &#123;  </span><br><span class="line">        echo &quot;a = [$a]&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>更新nginx.conf之后，nginx -s reload</p>
+<p>curl -v ‘<a href="http://localhost:8082/foo/&#39;" target="_blank" rel="noopener">http://localhost:8082/foo/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.6.png" alt="测试结果5" title="">
+                </div>
+                <div class="image-caption">测试结果5</div>
+            </figure>
+<p>curl -v ‘<a href="http://localhost:8082/foo1/&#39;" target="_blank" rel="noopener">http://localhost:8082/foo1/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.7.png" alt="测试结果6" title="">
+                </div>
+                <div class="image-caption">测试结果6</div>
+            </figure>
+<hr>
+<p>下面是更进一步的例子</p>
+<p>因为对内建变量 $args 的修改会直接导致当前请求的 URL 参数串发生变化，因此内建变量 $arg_XXX 自然也会随之变化。<br><strong> 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location /test3/ &#123;  </span><br><span class="line">    set $orig_a $arg_a;  </span><br><span class="line">    set $args &quot;a=5&quot;;  </span><br><span class="line">    echo &quot;original a: $orig_a&quot;;  </span><br><span class="line">    echo &quot;a: $arg_a&quot;;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>更新nginx.conf之后，nginx -s reload</p>
+<p>curl ‘<a href="http://localhost:8082/test3?a=3/&#39;" target="_blank" rel="noopener">http://localhost:8082/test3?a=3/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.8.png" alt="测试结果7" title="">
+                </div>
+                <div class="image-caption">测试结果7</div>
+            </figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line">    listen 8083;  </span><br><span class="line">    server_name localhost;  </span><br><span class="line">  </span><br><span class="line">    location /test/ &#123;  </span><br><span class="line">        set $args &quot;foo=1&amp;bar=2&quot;;  </span><br><span class="line">        proxy_pass http://127.0.0.1:8084/args/;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">server &#123;  </span><br><span class="line">    listen 8084;  </span><br><span class="line">    server_name localhost;  </span><br><span class="line">  </span><br><span class="line">    location /args/ &#123;  </span><br><span class="line">        echo &quot;args: $args&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更新nginx.conf之后，nginx -s reload</p>
+<p>curl -v ‘<a href="http://localhost:8083/test?blah=7/&#39;" target="_blank" rel="noopener">http://localhost:8083/test?blah=7/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.9.png" alt="测试结果8" title="">
+                </div>
+                <div class="image-caption">测试结果8</div>
+            </figure>
+<hr>
+<p>父子请求之间的变量共享</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">location /main/ &#123;  </span><br><span class="line">    echo_location /foo2/;  </span><br><span class="line">    echo_location /bar2/;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">location /foo2/ &#123;  </span><br><span class="line">    echo foo2;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">location /bar2/ &#123;  </span><br><span class="line">    echo bar2;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>curl ‘<a href="http://localhost:8082/main/&#39;" target="_blank" rel="noopener">http://localhost:8082/main/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/2.0.png" alt="测试结果9" title="">
+                </div>
+                <div class="image-caption">测试结果9</div>
+            </figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">location /main3/ &#123;  </span><br><span class="line">    set $var main;  </span><br><span class="line">    echo_location /foo3;  </span><br><span class="line">    echo_location /bar3;  </span><br><span class="line">    echo &quot;main: $var&quot;;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">location /foo3/ &#123;  </span><br><span class="line">    set $var foo;  </span><br><span class="line">    echo &quot;foo: $var&quot;;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">location /bar3/ &#123;  </span><br><span class="line">    set $var bar;  </span><br><span class="line">    echo &quot;bar: $var&quot;;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更新nginx.conf之后，nginx -s reload<br>curl -v ‘<a href="http://localhost:8082/main3/&#39;" target="_blank" rel="noopener">http://localhost:8082/main3/&#39;</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/2.1.png" alt="测试结果10" title="">
+                </div>
+                <div class="image-caption">测试结果10</div>
+            </figure>
+<p>参考文献<br>[1].<a href="https://github.com/openresty/echo-nginx-module" target="_blank" rel="noopener">https://github.com/openresty/echo-nginx-module</a><br>[2].<a href="http://blog.sina.com.cn/s/articlelist_1834459124_0_1.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/articlelist_1834459124_0_1.html</a></p>
+<hr>
+<ol start="2">
+<li>ngx_http_empty_gif_module<br>ngx_http_empty_gif_module是nginx自带的标准模块，它只返回一个保存在内存中的透明像素的GIF图片(速度当然比硬盘上读取的速度快很多)，多用于传递统计参数，用在location上下文中。<br>该模块默认就是开启的。<br>参考文献<br>[1].<a href="https://blog.csdn.net/tao_627/article/details/78971301" target="_blank" rel="noopener">https://blog.csdn.net/tao_627/article/details/78971301</a></li>
+</ol>
+<hr>
+<ol start="3">
+<li>ngx_http_stub_status_module(标准模块)<br>增加对每请求的响应时间的统计：在stub status模块中增加了自Tengine启动以来所有请求的总响应时间(request_time)，</li>
+</ol>
+<p>参考文献<br>[1].<a href="https://blog.csdn.net/tao_627/article/details/78958455" target="_blank" rel="noopener">https://blog.csdn.net/tao_627/article/details/78958455</a><br>[2].<a href="https://blog.csdn.net/u010889990/article/details/42081973" target="_blank" rel="noopener">https://blog.csdn.net/u010889990/article/details/42081973</a></p>
+<ol start="4">
+<li>ngx_req_status<br>ngx_req_status用来展示nginx请求状态信息，类似于apache的status，ats的stats_over_http和channel_stats，<br>nginx自带的模块只能显示连接数等等信息，我们并不能知道到底有哪些请求、以及各url域名所消耗的带宽是多少。</li>
+</ol>
+<p>ngx_req_status提供了这些功能：</p>
+<ul>
+<li>功能特性</li>
+<li>按域名、url、ip等等统计信息</li>
+<li>统计总流量</li>
+<li>统计当前带宽\峰值带宽</li>
+<li>统计总请求数量</li>
+</ul>
+<p>该模块的官网地址<br><a href="https://github.com/zls0424/ngx_req_status.git" target="_blank" rel="noopener">https://github.com/zls0424/ngx_req_status.git</a></p>
+<p><strong> 下载源码并手动打补丁 </strong><br>下载它的源码，发现该模块源码比较早，最新的补丁是write_filter-1.7.11.patch，鉴于当前nginx的版本是1.12.2，最稳妥的方法是<br>参照该补丁文件，直接手动修改现在的相应源文件(行号相差不太远)<br>src/http/ngx_http_write_filter_module.c  第263行<br>相关声明在<br>src/http/ngx_http.h<br>src/http/ngx_http.c<br>src/http/ngx_http_core_module.h</p>
+<p><strong> 编译</strong><br>下面开启编译该模块的源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cd nginx</span><br><span class="line">./configure --with-http_ssl_module \</span><br><span class="line">--with-pcre=/usr/local/src/pcre-8.41 \</span><br><span class="line">--with-zlib=/usr/local/src/zlib-1.2.11 \</span><br><span class="line">--with-openssl=/usr/local/src/openssl-1.1.0g \</span><br><span class="line">--with-http_stub_status_module \</span><br><span class="line">--add-module=/usr/local/src/ngx_cache_purge \</span><br><span class="line">--add-module=/usr/local/src/ngx_req_status</span><br><span class="line">make</span><br></pre></td></tr></table></figure></p>
+<p><strong> 配置</strong><br>在nginx.conf的某个server块中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">http &#123;  </span><br><span class="line">    req_status_zone server_name $server_name     256k;  </span><br><span class="line">    req_status_zone server_addr $server_addr     256k;  </span><br><span class="line">    req_status_zone server_url  $server_name$uri 256k;  </span><br><span class="line">  </span><br><span class="line">    req_status server_name  server_addr  server_url;  </span><br><span class="line">  </span><br><span class="line">    server &#123;  </span><br><span class="line">        server_name localhost;  </span><br><span class="line">        location /ngx_req_status &#123;  </span><br><span class="line">            req_status_show on;  </span><br><span class="line">        &#125;     </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后检查nginx.conf语法合法性并重启nginx<br>/usr/local/nginx/sbin/nginx -t<br>/usr/local/nginx/sbin/nginx -s stop<br>/usr/local/nginx/sbin/nginx<br>注意重启并不会生效<br>/usr/local/nginx/sbin/nginx -s reload</p>
+<p>指令解释<br>req_status_zone<br>语法: req_status_zone name string size<br>默认值: None<br>配置块: http<br>定义请求状态ZONE,请求按照string分组来排列，例如：<br>req_status_zone server_url  $server_name$uri 256k;<br>域名+uri将会形成一条数据，可以看到所有url的带宽，流量，访问数</p>
+<p>req_status<br>语法: req_status zone1[ zone2]<br>默认值: None<br>配置块: http, server, location<br>在location中启用请求状态，你可以指定更多zones。</p>
+<p>req_status_show<br>语法: req_status_show on<br>默认值: None<br>配置块: location</p>
+<p><strong> 测试</strong><br>curl -v ‘<a href="http://127.0.0.1/ngx_req_status&#39;" target="_blank" rel="noopener">http://127.0.0.1/ngx_req_status&#39;</a><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/1.jpg" alt="测试结果" title="">
+                </div>
+                <div class="image-caption">测试结果</div>
+            </figure></p>
+<hr>
+<ol start="5">
+<li>set-misc-nginx-module<br>set-misc-nginx-module模块是标准的HttpRewriteModule指令的扩展，提供更多的功能，如URI转义与非转义、JSON引述、Hexadecimal/MD5/SHA1/Base32/Base64编码与解码、随机数等等。在后面的应用中，都将会接触使用到这个模块的。该模块是由章亦春先生开发的，他开发的其他模块应用也会使用到这个模块的。充分使用nginx非阻塞模式，对性能上有极大的提高，我个人认为很有必要去弄懂弄透nginx，通过自己去动手动脑用实例来加以验证，不断的对模块参数命令加以理解，在实际环境中应用自如。<br>这两个模块的主页分别是<br>标准模块ngx_http_rewrite_module<br><a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html" target="_blank" rel="noopener">http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</a><br>第三方模块set-misc-nginx-module<br>ngx_set_misc - Various set_xxx directives added to nginx’s rewrite module (md5/sha1, sql/json quoting, and many more)<br><a href="https://github.com/openresty/set-misc-nginx-module" target="_blank" rel="noopener">https://github.com/openresty/set-misc-nginx-module</a></li>
+</ol>
+<p><strong> 下载源码</strong><br>cd /usr/local/src<br>wget <a href="https://github.com/openresty/set-misc-nginx-module/archive/v0.31.tar.gz" target="_blank" rel="noopener">https://github.com/openresty/set-misc-nginx-module/archive/v0.31.tar.gz</a><br>wget <a href="https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz" target="_blank" rel="noopener">https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz</a><br>tar zxvf v0.31.tar.gz<br>tar zxvf v0.3.0.tar.gz</p>
+<p><strong> 编译安装</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cd nginx</span><br><span class="line">./configure --with-http_ssl_module \</span><br><span class="line">--with-pcre=/usr/local/src/pcre-8.41 \</span><br><span class="line">--with-zlib=/usr/local/src/zlib-1.2.11 \</span><br><span class="line">--with-openssl=/usr/local/src/openssl-1.1.0g \</span><br><span class="line">--with-http_stub_status_module \</span><br><span class="line">--add-module=/usr/local/src/ngx_cache_purge \</span><br><span class="line">--add-module=/usr/local/src/ngx_req_status \</span><br><span class="line">--add-module=/usr/local/src/echo-nginx-module \</span><br><span class="line">--add-module=/usr/local/src/ngx_devel_kit-0.3.0 \</span><br><span class="line">--add-module=/usr/local/src/set-misc-nginx-module-0.31</span><br><span class="line">make</span><br></pre></td></tr></table></figure></p>
+<p>注意这里set-misc-nginx-module依赖ngx_devel_kit模块，且–add-module=ngx_devel_kit一定要早于–add-module=set-misc-nginx-module</p>
+<p><strong> 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location /test &#123;  </span><br><span class="line">    echo &quot;uri = $uri&quot;;  </span><br><span class="line">    echo &quot;request_uri = $request_uri&quot;;  </span><br><span class="line">    echo &quot;name: $arg_name&quot;;  </span><br><span class="line">    echo &quot;class: $arg_class&quot;;  </span><br><span class="line">    set_unescape_uri $name $arg_name;  </span><br><span class="line">    set_unescape_uri $class $arg_class;  </span><br><span class="line">    echo &quot;name: $name&quot;;  </span><br><span class="line">    echo &quot;class: $class&quot;;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong> 测试</strong><br>curl -v ‘<a href="http://localhost:8082/test&#39;" target="_blank" rel="noopener">http://localhost:8082/test&#39;</a><br>curl ‘<a href="http://localhost:8082/test?a=3&amp;b=4&#39;" target="_blank" rel="noopener">http://localhost:8082/test?a=3&amp;b=4&#39;</a><br>curl ‘<a href="http://localhost:8082/test/hello%20world?a=3&amp;b=4&#39;" target="_blank" rel="noopener">http://localhost:8082/test/hello%20world?a=3&amp;b=4&#39;</a><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/22.png" alt="测试结果1" title="">
+                </div>
+                <div class="image-caption">测试结果1</div>
+            </figure></p>
+<hr>
+<p>curl ‘<a href="http://localhost:8082/test?name=Tom&amp;class=3&#39;" target="_blank" rel="noopener">http://localhost:8082/test?name=Tom&amp;class=3&#39;</a><br>curl ‘<a href="http://localhost:8082/test?name=hello%20world&amp;class=9&#39;" target="_blank" rel="noopener">http://localhost:8082/test?name=hello%20world&amp;class=9&#39;</a><br>curl ‘<a href="http://localhost:8082/test?NAME=Marry&#39;" target="_blank" rel="noopener">http://localhost:8082/test?NAME=Marry&#39;</a><br>curl ‘<a href="http://localhost:8082/test?Name=Jimmy&#39;" target="_blank" rel="noopener">http://localhost:8082/test?Name=Jimmy&#39;</a><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/33.png" alt="测试结果2" title="">
+                </div>
+                <div class="image-caption">测试结果2</div>
+            </figure></p>
+<hr>
+<p>curl ‘<a href="http://localhost:8082/test?name=hello%20world&amp;class=9&#39;" target="_blank" rel="noopener">http://localhost:8082/test?name=hello%20world&amp;class=9&#39;</a><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Jerryping/BolgImage/master/ThirdModule/44.png" alt="测试结果3" title="">
+                </div>
+                <div class="image-caption">测试结果3</div>
+            </figure></p>
+<p>更复杂的指令待后续继续补充</p>
+<ol start="6">
+<li>ngx_http_v2_module</li>
+</ol>
+<p>在原有基础上修改编译选项来开启http2</p>
+<p>参考文献<br>[1].<a href="https://blog.csdn.net/tao_627/article/details/77266705" target="_blank" rel="noopener">https://blog.csdn.net/tao_627/article/details/77266705</a></p>
+<ol start="7">
+<li>实现第一个自定义nginx模块</li>
+</ol>
+<p>参考文献<br><a href="https://blog.csdn.net/tao_627/article/details/60957718" target="_blank" rel="noopener">https://blog.csdn.net/tao_627/article/details/60957718</a></p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-04-03T05:58:16.396Z" itemprop="dateUpdated">2018-04-03 13:58:16</time>
+</span><br>
+
+
+        
+        这里可以写作者留言.<a href="/2018/03/16/Nginx系列7/" target="_blank" rel="external">http://oleaster.cn/2018/03/16/Nginx系列7/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://oleaster.cn">
+            <img src="/img/avatar.jpg" alt="Q·Man">
+            Q·Man
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/16/Nginx系列7/&title=《Nginx系列(7)第三方模块》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/16/Nginx系列7/&title=《Nginx系列(7)第三方模块》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/16/Nginx系列7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(7)第三方模块》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/16/Nginx系列7/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/16/Nginx系列7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/03/16/Nginx系列6/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Nginx系列(6)模块</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'true' == 'true',
+            appId: "6rQLaNUqzbdwWsUWf1nYcyqO-gzGzoHsz",
+            appKey: "7zLbzdLttc8RFYE01xaflU8C",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script> 
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/demo1.js"></script>
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    </div>
+    <div class="bottom">
+        <p><span>
+		
+		Powered by Q·Man
+		
+		
+		&copy; 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备1234556号-1</a>
+                	
+            </span>
+			 
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/16/Nginx系列7/&title=《Nginx系列(7)第三方模块》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/16/Nginx系列7/&title=《Nginx系列(7)第三方模块》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/16/Nginx系列7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(7)第三方模块》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/16/Nginx系列7/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/16/Nginx系列7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://oleaster.cn/2018/03/16/Nginx系列7/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

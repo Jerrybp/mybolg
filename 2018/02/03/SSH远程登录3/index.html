@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>SSH原理与运用（三）免密码登录详解 | Jerry&#39;s Bolg | 2B青年欢乐多</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="SSH">
+    <meta name="description" content="SSH免密码登录详解   为了更好的理解SSH免密码登录原理，我们先来说说SSH的安全验证，SSH采用的是”非对称密钥系统”，即耳熟能详的公钥私钥加密系统，其安全验证又分为两种级别。 1. 基于口令的安全验证这种方式使用用户名密码进行联机登录，一般情况下我们使用的都是这种方式。整个过程大致如下： （1）客户端发起连接请求。 （2）远程主机收到用户的登录请求，把自己的公钥发给客户端。 （3）客户端">
+<meta name="keywords" content="SSH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSH原理与运用（三）免密码登录详解">
+<meta property="og:url" content="http://oleaster.cn/2018/02/03/SSH远程登录3/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Bolg">
+<meta property="og:description" content="SSH免密码登录详解   为了更好的理解SSH免密码登录原理，我们先来说说SSH的安全验证，SSH采用的是”非对称密钥系统”，即耳熟能详的公钥私钥加密系统，其安全验证又分为两种级别。 1. 基于口令的安全验证这种方式使用用户名密码进行联机登录，一般情况下我们使用的都是这种方式。整个过程大致如下： （1）客户端发起连接请求。 （2）远程主机收到用户的登录请求，把自己的公钥发给客户端。 （3）客户端">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-26T10:45:14.522Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSH原理与运用（三）免密码登录详解">
+<meta name="twitter:description" content="SSH免密码登录详解   为了更好的理解SSH免密码登录原理，我们先来说说SSH的安全验证，SSH采用的是”非对称密钥系统”，即耳熟能详的公钥私钥加密系统，其安全验证又分为两种级别。 1. 基于口令的安全验证这种方式使用用户名密码进行联机登录，一般情况下我们使用的都是这种方式。整个过程大致如下： （1）客户端发起连接请求。 （2）远程主机收到用户的登录请求，把自己的公钥发给客户端。 （3）客户端">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+	
+	
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Q·Man</h5>
+          <a href="mailto:pinggrubby@hotmail.com" title="pinggrubby@hotmail.com" class="mail">pinggrubby@hotmail.com</a>
+			<h6 class="subtitle">
+				2B青年欢乐多
+			</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章列表
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类目
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.kernel.org/" target="_blank" >
+                <i class="icon icon-lg icon-linux"></i>
+                Linux Kernel
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.centos.org/" target="_blank" >
+                <i class="icon icon-lg icon-server"></i>
+                Centos
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.debian.org/" target="_blank" >
+                <i class="icon icon-lg icon-tint"></i>
+                Debian
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.ubuntu.com/index_kylin" target="_blank" >
+                <i class="icon icon-lg icon-braille"></i>
+                Ubuntu
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.redhat.com/zh" target="_blank" >
+                <i class="icon icon-lg icon-cube"></i>
+                RerHat
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://distrowatch.com/" target="_blank" >
+                <i class="icon icon-lg icon-list-ol"></i>
+                Linux排行
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://nginx.org/" target="_blank" >
+                <i class="icon icon-lg icon-google"></i>
+                Nginx
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.gnu.org/licenses/licenses.html" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GPL
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/more"  >
+                <i class="icon icon-lg icon-codepen"></i>
+                更多
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-address-card"></i>
+                关于
+				
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SSH原理与运用（三）免密码登录详解</div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">SSH原理与运用（三）免密码登录详解</h1>
+       
+    </div>
+
+    
+
+<div id="player8" class="aplayer"></div>
+</header>
+
+
+<div class="container body-wrap">
+    
+<link rel="stylesheet" href="/css/APlayer.min.css?v=1.7.2">
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1-基于口令的安全验证"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 基于口令的安全验证</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#2-基于密匙的安全验证"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. 基于密匙的安全验证</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#3-使用场景"><span class="post-toc-number">3.</span> <span class="post-toc-text">3. 使用场景</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#4-相关配置项"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. 相关配置项</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#5-权限问题"><span class="post-toc-number">5.</span> <span class="post-toc-text">5. 权限问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#6-配置实现"><span class="post-toc-number">6.</span> <span class="post-toc-text">6. 配置实现</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-SSH远程登录3"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">SSH原理与运用（三）免密码登录详解</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-02-03 10:46:12" datetime="2018-02-03T02:46:12.000Z"  itemprop="datePublished">2018-02-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/OS/">OS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><strong> SSH免密码登录详解 </strong></p>
+<hr>
+<p>为了更好的理解SSH免密码登录原理，我们先来说说SSH的安全验证，SSH采用的是”非对称密钥系统”，即耳熟能详的公钥私钥加密系统，其安全验证又分为两种级别。</p>
+<h1 id="1-基于口令的安全验证"><a href="#1-基于口令的安全验证" class="headerlink" title="1. 基于口令的安全验证"></a>1. 基于口令的安全验证</h1><p>这种方式使用用户名密码进行联机登录，一般情况下我们使用的都是这种方式。整个过程大致如下：</p>
+<p>（1）客户端发起连接请求。</p>
+<p>（2）远程主机收到用户的登录请求，把自己的公钥发给客户端。</p>
+<p>（3）客户端接收远程主机的公钥，然后使用远程主机的公钥加密登录密码，紧接着将加密后的登录密码连同自己的公钥一并发送给远程主机。</p>
+<p>（4）远程主机接收客户端的公钥及加密后的登录密码，用自己的私钥解密收到的登录密码，如果密码正确则允许登录，到此为止双方彼此拥有了对方的公钥，开始双向加密解密。</p>
+<p>PS：当网络中有另一台冒牌服务器冒充远程主机时，客户端的连接请求被服务器B拦截，服务器B将自己的公钥发送给客户端，客户端就会将密码加密后发送给冒牌服务器，冒牌服务器就可以拿自己的私钥获取到密码，然后为所欲为。因此当第一次链接远程主机时，在上述步骤的第（3）步中，会提示您当前远程主机的”公钥指纹”，以确认远程主机是否是正版的远程主机，如果选择继续后就可以输入密码进行登录了，当远程的主机接受以后，该台服务器的公钥就会保存到 ~/.ssh/known_hosts文件中。</p>
+<h1 id="2-基于密匙的安全验证"><a href="#2-基于密匙的安全验证" class="headerlink" title="2. 基于密匙的安全验证"></a>2. 基于密匙的安全验证</h1><p>这种方式你需要在当前用户家目录下为自己创建一对密匙，并把公匙放在需要登录的服务器上。当你要连接到服务器上时，客户端就会向服务器请求使用密匙进行安全验证。服务器收到请求之后，会在该服务器上你所请求登录的用户的家目录下寻找你的公匙，然后与你发送过来的公匙进行比较。如果两个密匙一致，服务器就用该公匙加密“质询”并把它发送给客户端。客户端收到“质询”之后用自己的私匙解密再把它发送给服务器。与第一种级别相比，第二种级别不需要在网络上传送口令。</p>
+<p>PS：简单来说，就是将客户端的公钥放到服务器上，那么客户端就可以免密码登录服务器了，那么客户端的公钥应该放到服务器上哪个地方呢？默认为你要登录的用户的家目录下的 .ssh 目录下的 authorized_keys 文件中（即：~/.ssh/authorized_keys）。</p>
+<h1 id="3-使用场景"><a href="#3-使用场景" class="headerlink" title="3. 使用场景"></a>3. 使用场景</h1><p>rsync自动备份时免密码登录，集群环境中需要主机间互相通信如：Hadoop，目前小编只涉及到这两处，日后有其它地方用到再来补充~</p>
+<h1 id="4-相关配置项"><a href="#4-相关配置项" class="headerlink" title="4. 相关配置项"></a>4. 相关配置项</h1><p>SSHD服务的配置文件位于/etc/ssh/sshd_config</p>
+<p>配置项一：PubkeyAuthentication 是否允许使用密钥验证方式登录</p>
+<p>配置项二：AuthorizedKeysFile允许登录主机的公钥存放文件，默认为用户家目录下的 .ssh/authorized_keys</p>
+<h1 id="5-权限问题"><a href="#5-权限问题" class="headerlink" title="5. 权限问题"></a>5. 权限问题</h1><p>.ssh文件夹 700 chmod 700 .ssh</p>
+<p>authorized_keys文件 644 chmod 644 .ssh/authorized_keys</p>
+<h1 id="6-配置实现"><a href="#6-配置实现" class="headerlink" title="6. 配置实现"></a>6. 配置实现</h1><p>服务器：192.168.0.10 用户：server</p>
+<p>客户端：192.168.0.11 用户：client</p>
+<blockquote>
+<p># 客户端配置<br># 使用client用户登录并进入家目录<br># cd /home/client<br># 建立认证公钥和私钥<br># ssh-keygen -t rsa （会有提示输入密码，直接回车即可）<br># 之后会在家目录下建立 .ssh 文件夹，内有id_rsa（私钥）和id_rsa.pub（公钥）两个文件<br># 将公钥文件上传到服务器上server的家目录<br># scp ~/.ssh/id_rsa.pub <a href="mailto:server@192.168.0.10" target="_blank" rel="noopener">server@192.168.0.10</a>:~</p>
+</blockquote>
+<blockquote>
+<p># 服务器端配置<br># 使用server用户登录并进入家目录<br># cd /home/server<br># 建立 .ssh 文件夹<br># mkdir .ssh;<br># 修改文件夹权限<br># chmod 700 .ssh<br># 将客户端传过来的id_rsa.pub文件中的内容加入到authorized_keys中<br># cat id_rsa.pub &gt;&gt; .ssh/authorized_keys<br># chmod 644 .ssh/authorized_keys</p>
+</blockquote>
+<p>之后你从客户端使用 client 用户登录服务器的server用户时就不需要再输入密码了，但是第一次连接时还是会提示你进行远程主机公钥指纹核对并将其存入 ~/.ssh/known_hosts 文件。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-03-26T10:45:14.522Z" itemprop="dateUpdated">2018-03-26 18:45:14</time>
+</span><br>
+
+
+        
+        这里可以写作者留言.<a href="/2018/02/03/SSH远程登录3/" target="_blank" rel="external">http://oleaster.cn/2018/02/03/SSH远程登录3/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://oleaster.cn">
+            <img src="/img/avatar.jpg" alt="Q·Man">
+            Q·Man
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/">SSH</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/02/03/SSH远程登录3/&title=《SSH原理与运用（三）免密码登录详解》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/02/03/SSH远程登录3/&title=《SSH原理与运用（三）免密码登录详解》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/02/03/SSH远程登录3/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SSH原理与运用（三）免密码登录详解》 — Jerry's Bolg&url=http://oleaster.cn/2018/02/03/SSH远程登录3/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/02/03/SSH远程登录3/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/02/08/Linux目录结构/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Linux各目录及每个目录的详细介绍</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/02/02/SSH远程登录2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">SSH原理与运用（二）远程操作与端口转发</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'true' == 'true',
+            appId: "6rQLaNUqzbdwWsUWf1nYcyqO-gzGzoHsz",
+            appKey: "7zLbzdLttc8RFYE01xaflU8C",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script> 
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/demo1.js"></script>
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    </div>
+    <div class="bottom">
+        <p><span>
+		
+		Powered by Q·Man
+		
+		
+		&copy; 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备1234556号-1</a>
+                	
+            </span>
+			 
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/02/03/SSH远程登录3/&title=《SSH原理与运用（三）免密码登录详解》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/02/03/SSH远程登录3/&title=《SSH原理与运用（三）免密码登录详解》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/02/03/SSH远程登录3/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SSH原理与运用（三）免密码登录详解》 — Jerry's Bolg&url=http://oleaster.cn/2018/02/03/SSH远程登录3/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/02/03/SSH远程登录3/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://oleaster.cn/2018/02/03/SSH远程登录3/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

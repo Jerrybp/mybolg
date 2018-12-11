@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Nginx系列(4)配置 | Jerry&#39;s Bolg | 2B青年欢乐多</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,Nginx">
+    <meta name="description" content="Nginx配置在项目使用中，使用最多的三个核心功能是反向代理、负载均衡和静态服务器这三个不同的功能的使用，都跟nginx的配置密切相关，nginx服务器的配置信息主要集中在nginx.conf这个配置文件中，在文件尾通过include /etc/nginx/conf.d/*.conf引入了default.conf配置整个配置上下文分http、server和location三个层级，分别对应着htt">
+<meta name="keywords" content="Linux,Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx系列(4)配置">
+<meta property="og:url" content="http://oleaster.cn/2018/03/15/Nginx系列4/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Bolg">
+<meta property="og:description" content="Nginx配置在项目使用中，使用最多的三个核心功能是反向代理、负载均衡和静态服务器这三个不同的功能的使用，都跟nginx的配置密切相关，nginx服务器的配置信息主要集中在nginx.conf这个配置文件中，在文件尾通过include /etc/nginx/conf.d/*.conf引入了default.conf配置整个配置上下文分http、server和location三个层级，分别对应着htt">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-28T06:15:54.641Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx系列(4)配置">
+<meta name="twitter:description" content="Nginx配置在项目使用中，使用最多的三个核心功能是反向代理、负载均衡和静态服务器这三个不同的功能的使用，都跟nginx的配置密切相关，nginx服务器的配置信息主要集中在nginx.conf这个配置文件中，在文件尾通过include /etc/nginx/conf.d/*.conf引入了default.conf配置整个配置上下文分http、server和location三个层级，分别对应着htt">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+	
+	
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Q·Man</h5>
+          <a href="mailto:pinggrubby@hotmail.com" title="pinggrubby@hotmail.com" class="mail">pinggrubby@hotmail.com</a>
+			<h6 class="subtitle">
+				2B青年欢乐多
+			</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章列表
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类目
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.kernel.org/" target="_blank" >
+                <i class="icon icon-lg icon-linux"></i>
+                Linux Kernel
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.centos.org/" target="_blank" >
+                <i class="icon icon-lg icon-server"></i>
+                Centos
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.debian.org/" target="_blank" >
+                <i class="icon icon-lg icon-tint"></i>
+                Debian
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.ubuntu.com/index_kylin" target="_blank" >
+                <i class="icon icon-lg icon-braille"></i>
+                Ubuntu
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.redhat.com/zh" target="_blank" >
+                <i class="icon icon-lg icon-cube"></i>
+                RerHat
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://distrowatch.com/" target="_blank" >
+                <i class="icon icon-lg icon-list-ol"></i>
+                Linux排行
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://nginx.org/" target="_blank" >
+                <i class="icon icon-lg icon-google"></i>
+                Nginx
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.gnu.org/licenses/licenses.html" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GPL
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/more"  >
+                <i class="icon icon-lg icon-codepen"></i>
+                更多
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-address-card"></i>
+                关于
+				
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx系列(4)配置</div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx系列(4)配置</h1>
+       
+    </div>
+
+    
+
+<div id="player8" class="aplayer"></div>
+</header>
+
+
+<div class="container body-wrap">
+    
+<link rel="stylesheet" href="/css/APlayer.min.css?v=1.7.2">
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Nginx配置"><span class="post-toc-number">1.</span> <span class="post-toc-text">Nginx配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#main模块"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">main模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#event-模块"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">event 模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#http模块"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">http模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#server模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">server模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#location模块"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">location模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#upstream模块"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">upstream模块</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Nginx系列4"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx系列(4)配置</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-03-15 10:46:12" datetime="2018-03-15T02:46:12.000Z"  itemprop="datePublished">2018-03-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h1><p>在项目使用中，使用最多的三个核心功能是反向代理、负载均衡和静态服务器<br>这三个不同的功能的使用，都跟nginx的配置密切相关，nginx服务器的配置信息主要集中在nginx.conf这个配置文件中，<br>在文件尾通过include /etc/nginx/conf.d/*.conf引入了default.conf配置<br>整个配置上下文分http、server和location三个层级，分别对应着http请求的全局性配置、server级配置和请求路径级配置。<br>nginx.conf负责http请求的全局配置，default.conf负责具体server及其下具体location的配置。这里为了方便是整合到一起的,<br>并且所有的可配置选项大致分为以下几个部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">main                                # 全局配置</span><br><span class="line"></span><br><span class="line">events &#123;                            # nginx工作模式配置</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;                                # http设置</span><br><span class="line">    ....</span><br><span class="line"></span><br><span class="line">    server &#123;                        # 服务器主机配置</span><br><span class="line">        ....</span><br><span class="line">        location &#123;                    # 路由配置</span><br><span class="line">            ....</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location path &#123;</span><br><span class="line">            ....</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location otherpath &#123;</span><br><span class="line">            ....</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        ....</span><br><span class="line"></span><br><span class="line">        location &#123;</span><br><span class="line">            ....</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    upstream name &#123;                    # 负载均衡配置</span><br><span class="line">        ....</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如上述配置文件所示，主要由6个部分组成：</p>
+<ol>
+<li>main：用于进行nginx全局信息的配置</li>
+<li>events：用于nginx工作模式的配置</li>
+<li>http：用于进行http协议信息的一些配置</li>
+<li>server：用于进行服务器访问信息的配置</li>
+<li>ocation：用于进行访问路由的配置</li>
+<li>upstream：用于进行负载均衡的配置</li>
+</ol>
+<h2 id="main模块"><a href="#main模块" class="headerlink" title="main模块"></a>main模块</h2><p>main模块是存放在main全局配置模块中的配置项</p>
+<h2 id="event-模块"><a href="#event-模块" class="headerlink" title="event 模块"></a>event 模块</h2><p>event模块是针对nginx服务器的工作模式的一些操作配置</p>
+<h2 id="http模块"><a href="#http模块" class="headerlink" title="http模块"></a>http模块</h2><p>http模块是作为web服务器，http模块是nginx最核心的一个模块，配置项也是比较多的，项目中会设置到很多的实际业务场景，需要根据硬件信息进行适当的配置，常规情况下，使用默认配置即可！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    ##</span><br><span class="line">    # 基础配置</span><br><span class="line">    ##</span><br><span class="line"></span><br><span class="line">    ##</span><br><span class="line">    # SSL证书配置[可在Server或location继承]</span><br><span class="line">    ##</span><br><span class="line">	</span><br><span class="line">    ##</span><br><span class="line">    # 日志配置[可在Server或location继承]</span><br><span class="line">    ##</span><br><span class="line">	</span><br><span class="line">    ##</span><br><span class="line">    # Gzip 压缩配置[可在Server或location继承]</span><br><span class="line">    ##</span><br><span class="line">	</span><br><span class="line">    ##</span><br><span class="line">    # 虚拟主机配置[可在Server或location继承]</span><br><span class="line">    ##</span><br><span class="line"></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line">    include /etc/nginx/sites-enabled/*;</span><br></pre></td></tr></table></figure>
+<h2 id="server模块"><a href="#server模块" class="headerlink" title="server模块"></a>server模块</h2><p>server模块是http模块中的一个子模块，用来定义一个虚拟访问主机，也就是一个虚拟服务器的配置信息</p>
+<h2 id="location模块"><a href="#location模块" class="headerlink" title="location模块"></a>location模块</h2><p>location模块是nginx配置中出现最多的一个配置，主要用于配置路由访问信息</p>
+<p>在路由访问信息配置中关联到反向代理、负载均衡等等各项功能，所以location模块也是一个非常重要的配置模块</p>
+<h2 id="upstream模块"><a href="#upstream模块" class="headerlink" title="upstream模块"></a>upstream模块</h2><p>upstream模块主要负责负载均衡的配置，通过默认的轮询调度方式来分发请求到后端服务器</p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-03-28T06:15:54.641Z" itemprop="dateUpdated">2018-03-28 14:15:54</time>
+</span><br>
+
+
+        
+        这里可以写作者留言.<a href="/2018/03/15/Nginx系列4/" target="_blank" rel="external">http://oleaster.cn/2018/03/15/Nginx系列4/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://oleaster.cn">
+            <img src="/img/avatar.jpg" alt="Q·Man">
+            Q·Man
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/15/Nginx系列4/&title=《Nginx系列(4)配置》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/15/Nginx系列4/&title=《Nginx系列(4)配置》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/15/Nginx系列4/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(4)配置》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/15/Nginx系列4/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/15/Nginx系列4/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/03/16/Nginx系列5/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Nginx系列(5)配置详解</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/03/14/Nginx系列3/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Nginx系列(3)日常维护常用命令</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'true' == 'true',
+            appId: "6rQLaNUqzbdwWsUWf1nYcyqO-gzGzoHsz",
+            appKey: "7zLbzdLttc8RFYE01xaflU8C",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script> 
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/demo1.js"></script>
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    </div>
+    <div class="bottom">
+        <p><span>
+		
+		Powered by Q·Man
+		
+		
+		&copy; 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备1234556号-1</a>
+                	
+            </span>
+			 
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/15/Nginx系列4/&title=《Nginx系列(4)配置》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/15/Nginx系列4/&title=《Nginx系列(4)配置》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/15/Nginx系列4/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(4)配置》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/15/Nginx系列4/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/15/Nginx系列4/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://oleaster.cn/2018/03/15/Nginx系列4/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

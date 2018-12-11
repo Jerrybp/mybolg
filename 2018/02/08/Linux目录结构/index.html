@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Linux各目录及每个目录的详细介绍 | Jerry&#39;s Bolg | 2B青年欢乐多</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux">
+    <meta name="description" content="Linux目录结构【常见目录说明】     目录 说明     / 根目录，一般根目录下只存放目录，不要存放文件，/etc、/bin、/dev、/lib、/sbin应该和根目录放置在一个分区中   /bin 存放二进制可执行文件(ls,cat,mkdir等)，常用命令一般都在这里。   /etc 存放系统管理和配置文件   /home 存放所有用户文件的根目录，是用户主目录的基点，比如用户user">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux各目录及每个目录的详细介绍">
+<meta property="og:url" content="http://oleaster.cn/2018/02/08/Linux目录结构/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Bolg">
+<meta property="og:description" content="Linux目录结构【常见目录说明】     目录 说明     / 根目录，一般根目录下只存放目录，不要存放文件，/etc、/bin、/dev、/lib、/sbin应该和根目录放置在一个分区中   /bin 存放二进制可执行文件(ls,cat,mkdir等)，常用命令一般都在这里。   /etc 存放系统管理和配置文件   /home 存放所有用户文件的根目录，是用户主目录的基点，比如用户user">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-21T09:30:05.848Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux各目录及每个目录的详细介绍">
+<meta name="twitter:description" content="Linux目录结构【常见目录说明】     目录 说明     / 根目录，一般根目录下只存放目录，不要存放文件，/etc、/bin、/dev、/lib、/sbin应该和根目录放置在一个分区中   /bin 存放二进制可执行文件(ls,cat,mkdir等)，常用命令一般都在这里。   /etc 存放系统管理和配置文件   /home 存放所有用户文件的根目录，是用户主目录的基点，比如用户user">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+	
+	
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Q·Man</h5>
+          <a href="mailto:pinggrubby@hotmail.com" title="pinggrubby@hotmail.com" class="mail">pinggrubby@hotmail.com</a>
+			<h6 class="subtitle">
+				2B青年欢乐多
+			</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章列表
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类目
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.kernel.org/" target="_blank" >
+                <i class="icon icon-lg icon-linux"></i>
+                Linux Kernel
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.centos.org/" target="_blank" >
+                <i class="icon icon-lg icon-server"></i>
+                Centos
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.debian.org/" target="_blank" >
+                <i class="icon icon-lg icon-tint"></i>
+                Debian
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.ubuntu.com/index_kylin" target="_blank" >
+                <i class="icon icon-lg icon-braille"></i>
+                Ubuntu
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.redhat.com/zh" target="_blank" >
+                <i class="icon icon-lg icon-cube"></i>
+                RerHat
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://distrowatch.com/" target="_blank" >
+                <i class="icon icon-lg icon-list-ol"></i>
+                Linux排行
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://nginx.org/" target="_blank" >
+                <i class="icon icon-lg icon-google"></i>
+                Nginx
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.gnu.org/licenses/licenses.html" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GPL
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/more"  >
+                <i class="icon icon-lg icon-codepen"></i>
+                更多
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-address-card"></i>
+                关于
+				
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Linux各目录及每个目录的详细介绍</div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Linux各目录及每个目录的详细介绍</h1>
+       
+    </div>
+
+    
+
+<div id="player8" class="aplayer"></div>
+</header>
+
+
+<div class="container body-wrap">
+    
+<link rel="stylesheet" href="/css/APlayer.min.css?v=1.7.2">
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Linux目录结构"><span class="post-toc-number">1.</span> <span class="post-toc-text">Linux目录结构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下面请看详细内容"><span class="post-toc-number">2.</span> <span class="post-toc-text">下面请看详细内容</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dev："><span class="post-toc-number">2.1.</span> <span class="post-toc-text">/dev：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#etc："><span class="post-toc-number">2.2.</span> <span class="post-toc-text">/etc：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#proc："><span class="post-toc-number">2.3.</span> <span class="post-toc-text">/proc：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#usr："><span class="post-toc-number">2.4.</span> <span class="post-toc-text">/usr：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#var："><span class="post-toc-number">2.5.</span> <span class="post-toc-text">/var：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#比较重要的目录"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">比较重要的目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文件种类："><span class="post-toc-number">2.7.</span> <span class="post-toc-text">文件种类：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Linux-的文件系统-inode-："><span class="post-toc-number">2.8.</span> <span class="post-toc-text">Linux 的文件系统( inode )：</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Linux目录结构"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Linux各目录及每个目录的详细介绍</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-02-08 10:46:12" datetime="2018-02-08T02:46:12.000Z"  itemprop="datePublished">2018-02-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/OS/">OS</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Linux目录结构"><a href="#Linux目录结构" class="headerlink" title="Linux目录结构"></a>Linux目录结构</h1><p>【常见目录说明】</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>目录</code></strong></th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>/</code></strong></td>
+<td style="text-align:left">根目录，一般根目录下只存放目录，不要存放文件，/etc、/bin、/dev、/lib、/sbin应该和根目录放置在一个分区中</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/bin</code></strong></td>
+<td style="text-align:left">存放二进制可执行文件(<font color="#00ffff" size="3">ls,cat,mkdir</font>等)，常用命令一般都在这里。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/etc</code></strong></td>
+<td style="text-align:left">存放系统管理和配置文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/home</code></strong></td>
+<td style="text-align:left">存放所有用户文件的根目录，是用户主目录的基点，比如用户user的主目录就是/home/user，可以用~user表示</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/usr</code></strong></td>
+<td style="text-align:left">用于存放系统应用程序，比较重要的目录/usr/local 本地系统管理员软件安装目录（安装系统级的应用）。这是最庞大的目录，要用到的应用程序和文件几乎都在这个目录。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/opt</code></strong></td>
+<td style="text-align:left">额外安装的可选应用程序包所放置的位置。一般情况下，我们可以把tomcat等都安装到这里。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/proc</code></strong></td>
+<td style="text-align:left">虚拟文件系统目录，是系统内存的映射。可直接访问这个目录来获取系统信息。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/root</code></strong></td>
+<td style="text-align:left">超级用户（系统管理员）的主目录（特权阶级^o^）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/sbin</code></strong></td>
+<td style="text-align:left">存放二进制可执行文件，只有root才能访问。这里存放的是系统管理员使用的系统级别的管理命令和程序。如ifconfig等。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/dev</code></strong></td>
+<td style="text-align:left">用于存放设备文件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/mnt</code></strong></td>
+<td style="text-align:left">系统管理员安装临时文件系统的安装点，系统提供这个目录是让用户临时挂载其他的文件系统。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/boot</code></strong></td>
+<td style="text-align:left">存放用于系统引导时使用的各种文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/lib</code></strong></td>
+<td style="text-align:left">存放跟文件系统中的程序运行所需要的共享库及内核模块。共享库又叫动态链接共享库，作用类似windows里的.dll文件，存放了根文件系统程序运行所需的共享文件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/tmp</code></strong></td>
+<td style="text-align:left">用于存放各种临时文件，是公用的临时文件存储点。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/var</code></strong></td>
+<td style="text-align:left">用于存放运行时需要改变数据的文件，也是某些大文件的溢出区，比方说各种服务的日志文件（系统启动日志等。）等。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>/lost+found</code></strong></td>
+<td style="text-align:left">这个目录平时是空的，系统非正常关机而留下“无家可归”的文件（windows下叫什么.chk）就在这里</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>/usr 最庞大的目录，其中包含：<br>/usr/x11r6 存放x window的目录<br>/usr/bin 众多的应用程序<br>/usr/sbin 超级用户的一些管理程序<br>/usr/doc linux文档<br>/usr/include linux下开发和编译应用程序所需要的头文件<br>/usr/lib 常用的动态链接库和软件包的配置文件<br>/usr/man 帮助文档<br>/usr/src 源代码，linux内核的源代码就放在/usr/src/linux里<br>/usr/local/bin 本地增加的命令<br>/usr/local/lib 本地增加的库</p>
+<hr>
+<h1 id="下面请看详细内容"><a href="#下面请看详细内容" class="headerlink" title="下面请看详细内容"></a>下面请看详细内容</h1><h2 id="dev："><a href="#dev：" class="headerlink" title="/dev："></a>/dev：</h2><pre><code>dev是设备(device)的英文缩写。/dev这个目录对所有的用户都十分重要。
+因为在这个目录中包含了所有Linux系统中使用的外部设备。
+但是这里并不是放的外部设备的驱动程序，
+这一点和wndows,dos操作系统不一样。它实际上是一个访问这些外部设备的端口。
+我们可以非常方便地去访问这些外部设备，和访问一个文件，一个目录没有任何区别。
+Linux沿袭Unix的风格，将所有设备认成是一个文件。设备文件用特定的约定命名.
+设备文件在安装时由系统产生，以后可以用/dev/makedev 描述。
+/ d e v / m a k e d e v.local是统管理员为本地设备文件(或连接)
+写的描述文稿(即如一些非标准设备驱动不是标准mkedev 的一部分)。
+</code></pre><blockquote>
+<p>设备文件分为两种：块设备文件(b)和字符设备文件(c)<br>设备文件一般存放在/dev目录下，对常见设备文件作如下说明：</p>
+</blockquote>
+<ol>
+<li>/dev/hd[a-t]：IDE设备</li>
+<li>/dev/sd[a-z]：SCSI设备</li>
+<li>/dev/fd[0-7]：标准软驱</li>
+<li>/dev/md[0-31]：软raid设备</li>
+<li>/dev/loop[0-7]：本地回环设备</li>
+<li>/dev/ram[0-15]：内存</li>
+<li>/dev/null：无限数据接收设备,相当于黑洞</li>
+<li>/dev/zero：无限零资源</li>
+<li>/dev/tty[0-63]：虚拟终端</li>
+<li>/dev/ttyS[0-3]：串口(对于dos来说就是“COM1”口。)</li>
+<li>/dev/lp[0-3]：并口</li>
+<li>/dev/console：控制台</li>
+<li>/dev/fb[0-31]：framebuffer</li>
+<li>/dev/cdrom =&gt; /dev/hdc</li>
+<li>/dev/modem =&gt; /dev/ttyS[0-9]</li>
+<li>/dev/pilot =&gt; /dev/ttyS[0-9]</li>
+<li>/dev/random：随机数设备</li>
+<li>/dev/urandom：随机数设备 (PS：随机数设备，后面我会再写篇博客总结一下)</li>
+<li>/dev目录下的节点是怎么创建的?</li>
+<li>devf或者udev会自动帮你创建得。</li>
+<li>kobject是sysfs文件系统的基础，udev通过监测、检测sysfs来获取新创建的设备的。</li>
+</ol>
+<hr>
+<h2 id="etc："><a href="#etc：" class="headerlink" title="/etc："></a>/etc：</h2><pre><code>包含很多文件.许多网络配置文件也在/etc 中. 下面说明其中的一些。
+其他的你应该知道它们属于哪个程序，并阅读该程序的man页。许多网络配置文件也在/etc 中。
+</code></pre><ol>
+<li>/etc/rc   or /etc/rc.d   or /etc/rc*.d<br>　　启动、或改变运行级时运行的scripts或scripts的目录.</li>
+<li>/etc/passwd<br>　　用户数据库，其中的域给出了用户名、真实姓名、家目录、加密的口令和用户的其他信息.</li>
+<li>/etc/fdprm<br>　　软盘参数表，用以说明不同的软盘格式。可用setfdprm进行设置。更多的信息见setfdprm的帮助页。</li>
+<li>/etc/fstab<br>　　启动时mount -a命令(在/etc/rc 或等效的启动文件中)自动mount的文件系统列表. Linux下，也包括用swapon -a启用的swap区的信息.</li>
+<li>/etc/group<br>　　类似/etc/passwd ，但说明的不是用户而是组. </li>
+<li>/etc/inittab<br>　　init 的配置文件. </li>
+<li>/etc/issue<br>　　getty 在登录提示符前的输出信息.通常包括系统的一段短说明或欢迎信息.内容由系统管理员确定.</li>
+<li>/etc/magic<br>　　file的配置文件。包含不同文件格式的说明，file基于它猜测文件类型。</li>
+<li>/etc/motd<br>　　Message Of The Day，成功登录后自动输出.内容由系统管理员确定.经常用于通告信息，如计划关机时间的警告. </li>
+<li>/etc/mtab<br>　　当前安装的文件系统列表.由scripts初始化，并由mount 命令自动更新.需要一个当前安装的文件系统的列表时使用，例如df 命令. </li>
+<li>/etc/shadow<br>　　在安装了影子口令软件的系统上的影子口令文件.影子口令文件将/etc/passwd 文件中的加密口令移动到/etc/shadow 中，而后者只对root可读.这使破译口令更困难. </li>
+<li>/etc/login.defs<br>　　login 命令的配置文件. </li>
+<li>/etc/printcap<br>　　类似/etc/termcap ，但针对打印机.语法不同. </li>
+<li>/etc/profile , /etc/csh.login , /etc/csh.cshrc<br>　　登录或启动时Bourne或C shells执行的文件.这允许系统管理员为所有用户建立全局缺省环境. </li>
+<li>/etc/securetty<br>　　确认安全终端，即哪个终端允许root登录.一般只列出虚拟控制台，这样就不可能(至少很困难)通过modem或网络闯入系统并得到超级用户特权. </li>
+<li>/etc/shells<br>　　列出可信任的shell.chsh 命令允许用户在本文件指定范围内改变登录shell.提供一台机器FTP服务的服务进程ftpd 检查用户shell是否列在 /etc/shells 文件中，如果不是将不允许该用户登录. </li>
+<li>/etc/sysconfig<br>　　网络配置相关目录</li>
+</ol>
+<hr>
+<h2 id="proc："><a href="#proc：" class="headerlink" title="/proc："></a>/proc：</h2><pre><code>文件系统是一个伪的文件系统，就是说它是一个实际上不存在的目录，因而这是一
+个非常特殊的目录。它并不存在于某个磁盘上，而是由核心在内存中产生。这个目录用于提
+供关于系统的信息。下面说明一些最重要的文件和目录(/proc 文件系统在proc man页中有更详
+细的说明)。
+</code></pre><ol>
+<li>/proc/x<br>　　关于进程x的信息目录，这一x是这一进程的标识号。每个进程在/proc 下有一个名为自己进程号的目录。</li>
+<li>/proc/cmdline<br>　　加载 kernel 时所下达的相关参数！查阅此文件，可了解系统是如何启动的！</li>
+<li>/proc/cpuinfo<br>　　本机的 CPU 的相关资讯，包含时脉、类型与运算功能等</li>
+<li>/proc/devices<br>　　这个文件记录了系统各个主要装置的主要装置代号，与 mknod 有关呢！</li>
+<li>/proc/dma<br>　　显示当前使用的d m a通道。</li>
+<li>/proc/filesystems<br>　　目前系统已经加载的文件系统罗！</li>
+<li>/proc/interrupts<br>　　目前系统上面的 IRQ 分配状态。</li>
+<li>/proc/ioports<br>　　目前系统上面各个装置所配置的 I/O 位址。</li>
+<li>/proc/kcore<br>　　这个就是内存的大小啦！好大对吧！但是不要读他啦！(系统物理内存映像。与物理内存大小完全一样，然而实际上没有占用这么多内存；它仅仅是在程序访问它时才被创建。(注意：除非你把它拷贝到什么地方，否则/proc 下没有任何东西占用任何磁盘空间。))</li>
+<li>/proc/kmsg<br>　　核心输出的消息。也会被送到s y s l o g。</li>
+<li>/proc/ksyms<br>　　核心符号表。</li>
+<li>/proc/loadavg<br>　　系统“平均负载”;还记得 top 以及 uptime 吧？没错！上头的三个平均数值就是记录在此！</li>
+<li>/proc/meminfo<br>　　各种存储器使用信息，包括物理内存和交换分区( s w a p )。使用 free 列出的内存资讯，嘿嘿！在这里也能够查阅到！    </li>
+<li>/proc/modules<br>　　目前我们的 Linux 已经加载的模块列表，也可以想成是驱动程序啦！</li>
+<li>/proc/mounts<br>　　系统已经挂载的数据，就是用 mount 这个命令呼叫出来的数据啦！</li>
+<li>/proc/net<br>　　网络协议状态信息。</li>
+<li>/proc/self<br>　　存放到查看/proc 的程序的进程目录的符号连接。当2个进程查看/proc 时，这将会是不同的连接。这主要便于程序得到它自己的进程目录。</li>
+<li>/proc/swaps<br>　　到底系统挂加载的内存在哪里？呵呵！使用掉的 partition 就记录在此啦！</li>
+<li>/proc/stat<br>　　系统的不同状态，例如，系统启动后页面发生错误的次数。</li>
+<li>/proc/partitions<br>　　使用 fdisk -l 会出现目前所有的 partition 吧？在这个文件当中也有纪录喔！</li>
+<li>/proc/pci<br>　　在 PCI 汇流排上面，每个装置的详细情况！可用 lspci 来查阅！</li>
+<li>/proc/uptime<br>　　就是用 uptime 的时候，会出现的资讯啦！</li>
+<li>/proc/version<br>　　核心的版本，就是用 uname -a 显示的内容啦！</li>
+<li>/proc/bus/*<br>　　一些汇流排的装置，还有 U盘 的装置也记录在此喔！</li>
+</ol>
+<hr>
+<h2 id="usr："><a href="#usr：" class="headerlink" title="/usr："></a>/usr：</h2><pre><code>/usr 文件系统经常很大，因为所有程序安装在这里. 
+/usr里的所有文件一般来自Linux distribution；
+本地安装的程序和其他东西在/usr/local 下.
+这样可能在升级新版系统或新distribution时无须重新安装全部程序.
+/usr目录下的许多内容是可选的，但这些功能会使用户使用系统更加有效。
+/usr可容纳许多大型的软件包和它们的配置文件。
+下面列出一些重要的目录(一些不太重要的目录被省略了)。
+</code></pre><ol>
+<li>/usr/x11r6<br>　　包含x wi n d o w系统的所有可执行程序、配置文件和支持文件。为简化x的开发和安装，x的文件没有集成到系统中。x wi n d o w系统是一个功能强大的图形环境，提供了大量的图形工具程序。用户如果对microsoft wi n d o w s或m a c h i n t o s h比较熟悉的话，就不会对x win d o w系统感到束手无策了。</li>
+<li>/usr/x386<br>　　类似/ u s r / x 11r6 ，但是是专门给x 11 release 5的。</li>
+<li>/usr/etc<br>　　存放设置文件</li>
+<li>/usr/games<br>　　存放游戏和教学文件</li>
+<li>/usr/include<br>　　存放C开发工具的头文件</li>
+<li>/usr/share<br>　　存放结构独立的数据</li>
+<li>/usr/bin<br>　　几乎所有用户命令.有些命令在/bin 或/usr/local/bin 中.</li>
+<li>/usr/sbin<br>　　根文件系统不必要的系统管理命令，例如多数服务程序.  </li>
+<li>/usr/share/man , /usr/share/info , /usr/share/doc<br>　　手册页、GNU信息文档和各种其他文档文件.  每个联机手册的“节”都有两个子目录。例如： / u s r / m a n / m a n 1中包含联机手册第一节的源码(没有格式化的原始文件)，/ u s r / m a n / c a t 1包含第一节已格式化的内容。l联机手册分为以下九节：内部命令、系统调用、库函数、设备、文件格式、游戏、宏软件包、系统管理和核心程序。</li>
+<li>/usr/include<br>　　包含了c语言的头文件，这些文件多以. h结尾，用来描述c语言程序中用到的数据结构、子过程和常量。为了保持一致性，这实际上应该放在/usr/lib 下，但习惯上一直沿用了这个名字。</li>
+<li>/usr/lib<br>　　程序或子系统的不变的数据文件，包括一些site-wide配置文件.名字lib来源于库(library); 编程的原始库存在/usr/lib 里.  当编译程序时，程序便会和其中的库进行连接。也有许多程序把配置文件存入其中。</li>
+<li>/usr/local<br>　　本地安装的软件和其他文件放在这里. 这与/ u s r很相似。用户可能会在这发现一些比较大的软件包，如t e x、e m a c s等。 </li>
+<li>/usr/src<br>　　存放程序的源代码</li>
+</ol>
+<hr>
+<h2 id="var："><a href="#var：" class="headerlink" title="/var："></a>/var：</h2><pre><code>/var 包括系统一般运行时要改变的数据.
+通常这些数据所在的目录的大小是要经常变化或扩充的。
+原来/var 目录中有些内容是在/usr中的，
+但为了保持/usr目录的相对稳定，
+就把那些需要经常改变的目录放到/var中了.
+每个系统是特定的，即不通过网络与其他计算机共享。
+下面列出一些重要的目录(一些不太重要的目录省略了)。
+</code></pre><ol>
+<li>/var/catman<br>　　当要求格式化时的man页的cache.man页的源文件一般存在/usr/man/man* 中；有些man页可能有预格式化的版本，存在/usr/man/cat* 中.而其他的man页在第一次看时需要格式化，格式化完的版本存在/var/man 中，这样其他人再看相同的页时就无须等待格式化了. (/var/catman 经常被清除，就象清除临时目录一样.)  </li>
+<li>/var/lib<br>　　系统正常运行时要改变的文件.  </li>
+<li>/var/local<br>　　/usr/local 中安装的程序的可变数据(即系统管理员安装的程序).注意，如果必要，即使本地安装的程序也会使用其他/var 目录，例如/var/lock .  </li>
+<li>/var/lock<br>　　锁定文件.许多程序遵循在/var/lock 中产生一个锁定文件的约定，以支持他们正在使用某个特定的设备或文件.其他程序注意到这个锁定文件，将不试图使用这个设备或文件.  </li>
+<li>/var/log<br>　　各种程序的Log文件，特别是login  (/var/log/wtmp log所有到系统的登录和注销) 和syslog (/var/log/messages 里存储所有核心和系统程序信息. /var/log 里的文件经常不确定地增长，应该定期清除.  </li>
+<li>/var/run<br>　　保存到下次引导前有效的关于系统的信息文件.例如， /var/run/utmp 包含当前登录的用户的信息.</li>
+<li>/var/spool<br>　　放置“假脱机( s p o o l )”程序的目录.mail, news, 打印队列和其他队列工作的目录.每个不同的spool在/var/spool 下有自己的子目录，例如，用户的邮箱在/var/spool/mail 中.  </li>
+<li>/var/tmp<br>　　比/tmp 允许的大或需要存在较长时间的临时文件. (虽然系统管理员可能不允许/var/tmp 有很旧的文件.) </li>
+</ol>
+<hr>
+<h2 id="比较重要的目录"><a href="#比较重要的目录" class="headerlink" title="比较重要的目录"></a>比较重要的目录</h2><p>在 Linux 系统中，有几个目录是特别需要注意的，以下提供几个需要注意的目录，以及预设相关的用途：　<br>        /etc： 这个目录相当重要，如前所述，你的开机与系统数据文件均在这个目录之下，因此当这个目录被破坏，那你的系统大概也就差不多该死掉了！而在往后的文件中，你会发现我们常常使用这个目录下的 /etc/rc.d/init.d 这个子目录，因为这个 init.d 子目录是开启一些 Linux 系统服务的 scripts （可以想成是批次檔 ）的地方。而在 /etc/rc.d/rc.local 这个文件是开机的执行档。　<br>        /bin, /sbin, /usr/bin, /usr/sbin： 这是系统预设的执行文件的放置目录，例如 root 常常使用的 userconf, netconf, perl, gcc, c++ 等等的数据都放在这几个目录中，所以如果你在提示字符下找不到某个执行档时，可以在这四个目录中查一查！其中， /bin, /usr/bin 是给系统使用者使用的指令，而 /sbin, /usr/sbin 则是给系统管理员使用的指令！  　<br>        /usr/local： 这是系统预设的让你安装你后来升级的套件的目录。例如，当你发现有更新的 Web 套件（如 Apache ）可以安装，而你又不想以 rpm 的方式升级你的套件，则你可以将 apache 这个套件安装在 /usr/local 底下。安装在这里有个好处，因为目前大家的系统都是差不多的，所以如果你的系统要让别人接管的话，也比较容易上手呀！也比较容易找的到数据喔！因此，如果你有需要的话，通常我都会将 /usr/local/bin 这个路径加到我的 path 中。　<br>        /home： 这个是系统将有账号的人口的家目录设置的地方。    　<br>        /var： 这个路径就重要了！不论是登入、各类服务的问题发生时的记录、以及常态性的服务记录等等的记录目录，所以当你的系统有问题时，就需要来这个目录记录的文件数据中察看问题的所在啰！而 mail 的预设放置也是在这里，所以他是很重要的    　<br>        /usr/share/man, /usr/local/man： 这两个目录为放置各类套件说明档的地方，例如你如果执行 man man，则系统会自动去找这两个目录下的所有说明文件</p>
+<h2 id="文件种类："><a href="#文件种类：" class="headerlink" title="文件种类："></a>文件种类：</h2><p>谈完了文件格式之后，再来谈谈所谓的文件种类吧！我们在刚刚的属性介绍中提到了最前面的标志 ( d 或 - ) 可以代表目录或文件，那就是不同的文件种类啦！Linux 的文件种类主要有底下</p>
+<p>这几种：<br>    正规文件( regular file )：就是一般类型的文件，在由 ls –al 所显示出来的属性方面，第一个属性为 [ - ]。另外，依照文件的内容，又大略可以分为两种文件种类：<br>     纯文字文件(ascii) ：这是 Unix 系统中最多的一种啰，几乎只要我们可以用来做为设定的文件都属于这一种；<br>     二进制文件(binary) ：通常执行档除了 scripts （文字型批次文件）之外，就是这一种文件格式；<br>    目录 (directory)：就是目录！第一个属性为 [ d ]；<br>    连结档 (link)：就是类似 Windows 底下的快捷方式啦！第一个属性为 [ l ]；<br>    设备档 (device)：与系统周边相关的一些文件，通常都集中在 /dev 这个目录之下！通常又分为两种：<br>    区块 (block) 设备档 ：就是一些储存数据，以提供系统存取的接口设备，简单的说就是硬盘啦！例如你的一号硬盘的代码是 /dev/hda1 等等的文件啦！第一个属性为 [ b ]；<br>    字符 (character) 设备档 ：亦即是一些串行端口的接口设备，例如键盘、鼠标等等！第一个属性为 [ c ]。</p>
+<h2 id="Linux-的文件系统-inode-："><a href="#Linux-的文件系统-inode-：" class="headerlink" title="Linux 的文件系统( inode )："></a>Linux 的文件系统( inode )：</h2><p>在 Linux 系统当中，每个文件不止有文件的内容数据，还包括文件的种种属性，例如：所属群组、所属使用者、能否执行、文</p>
+<p>件建立时间、文件特殊属性等等。我们将每个文件的内容分为两个部分来储存，一个是文件的属性，另一个则是文件的内容。<br>　<br>为了应付这两个不同的咚咚，所以 ext2 规划出 inode 与 Block 来分别储存文件的属性( 放在 inode 当中 )与文件的内容( 放置在 Block area 当中 )。当我们要将一个 partition 格式化</p>
+<p>( format )为 ext2 时，就必须要指定 inode 与 Block 的大小才行，也就是说，当 partition 被格式化为 ext2 的文件系统时，他一定会有 inode table 与 block area 这两个区域。<br>　<br>Block 已经在前面说过了，他是数据储存的最小单位。那么 inode 是什么？！简单的说， Block 是记录『文件内容数据』的区域，至于 inode 则是记录『该文件的相关属性，以及文件内容</p>
+<p>放置在哪一个 Block 之内』的信息。简单的说， inode 除了记录文件的属性外，同时还必须要具有指向( pointer )的功能，亦即指向文件内容放置的区块之中，好让操作系统可以正确的去</p>
+<p>取得文件的内容啊</p>
+<pre><code>该文件的拥有者与群组(owner/group)；
+该文件的存取模式；
+该文件的类型；
+该文件的建立日期(ctime)、最近一次的读取时间(atime)、最近修改的时间 (mtime)；
+该文件的容量；
+定义文件特性的旗标(flag)，如 SetUID...；
+该文件真正内容的指向 (pointer)；
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-03-21T09:30:05.848Z" itemprop="dateUpdated">2018-03-21 17:30:05</time>
+</span><br>
+
+
+        
+        这里可以写作者留言.<a href="/2018/02/08/Linux目录结构/" target="_blank" rel="external">http://oleaster.cn/2018/02/08/Linux目录结构/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://oleaster.cn">
+            <img src="/img/avatar.jpg" alt="Q·Man">
+            Q·Man
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/02/08/Linux目录结构/&title=《Linux各目录及每个目录的详细介绍》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/02/08/Linux目录结构/&title=《Linux各目录及每个目录的详细介绍》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/02/08/Linux目录结构/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux各目录及每个目录的详细介绍》 — Jerry's Bolg&url=http://oleaster.cn/2018/02/08/Linux目录结构/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/02/08/Linux目录结构/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/02/09/Linux系统与Windows共享/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">VirtualBox内Linux系统怎样与Windows共享文件夹</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/02/03/SSH远程登录3/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">SSH原理与运用（三）免密码登录详解</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'true' == 'true',
+            appId: "6rQLaNUqzbdwWsUWf1nYcyqO-gzGzoHsz",
+            appKey: "7zLbzdLttc8RFYE01xaflU8C",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script> 
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/demo1.js"></script>
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    </div>
+    <div class="bottom">
+        <p><span>
+		
+		Powered by Q·Man
+		
+		
+		&copy; 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备1234556号-1</a>
+                	
+            </span>
+			 
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/02/08/Linux目录结构/&title=《Linux各目录及每个目录的详细介绍》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/02/08/Linux目录结构/&title=《Linux各目录及每个目录的详细介绍》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/02/08/Linux目录结构/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux各目录及每个目录的详细介绍》 — Jerry's Bolg&url=http://oleaster.cn/2018/02/08/Linux目录结构/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/02/08/Linux目录结构/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://oleaster.cn/2018/02/08/Linux目录结构/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

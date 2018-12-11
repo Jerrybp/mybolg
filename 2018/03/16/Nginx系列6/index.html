@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Nginx系列(6)模块 | Jerry&#39;s Bolg | 2B青年欢乐多</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,Nginx">
+    <meta name="description" content="Nginx模块(一)此文摘至Tengine   Tengine是由淘宝网发起的Web服务器项目。它在Nginx的基础上，针对大访问量网站的需求，添加了很多高级功能和特性。Tengine的性能和稳定性已经在大型的网站如淘宝网，天猫商城等得到了很好的检验。它的最终目标是打造一个高效、稳定、安全、易用的Web平台。 从2011年12月开始，Tengine成为一个开源项目，Tengine团队在积极地开发和">
+<meta name="keywords" content="Linux,Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx系列(6)模块">
+<meta property="og:url" content="http://oleaster.cn/2018/03/16/Nginx系列6/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Bolg">
+<meta property="og:description" content="Nginx模块(一)此文摘至Tengine   Tengine是由淘宝网发起的Web服务器项目。它在Nginx的基础上，针对大访问量网站的需求，添加了很多高级功能和特性。Tengine的性能和稳定性已经在大型的网站如淘宝网，天猫商城等得到了很好的检验。它的最终目标是打造一个高效、稳定、安全、易用的Web平台。 从2011年12月开始，Tengine成为一个开源项目，Tengine团队在积极地开发和">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-28T07:35:36.632Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx系列(6)模块">
+<meta name="twitter:description" content="Nginx模块(一)此文摘至Tengine   Tengine是由淘宝网发起的Web服务器项目。它在Nginx的基础上，针对大访问量网站的需求，添加了很多高级功能和特性。Tengine的性能和稳定性已经在大型的网站如淘宝网，天猫商城等得到了很好的检验。它的最终目标是打造一个高效、稳定、安全、易用的Web平台。 从2011年12月开始，Tengine成为一个开源项目，Tengine团队在积极地开发和">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+	
+	
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Q·Man</h5>
+          <a href="mailto:pinggrubby@hotmail.com" title="pinggrubby@hotmail.com" class="mail">pinggrubby@hotmail.com</a>
+			<h6 class="subtitle">
+				2B青年欢乐多
+			</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章列表
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类目
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.kernel.org/" target="_blank" >
+                <i class="icon icon-lg icon-linux"></i>
+                Linux Kernel
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.centos.org/" target="_blank" >
+                <i class="icon icon-lg icon-server"></i>
+                Centos
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.debian.org/" target="_blank" >
+                <i class="icon icon-lg icon-tint"></i>
+                Debian
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.ubuntu.com/index_kylin" target="_blank" >
+                <i class="icon icon-lg icon-braille"></i>
+                Ubuntu
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.redhat.com/zh" target="_blank" >
+                <i class="icon icon-lg icon-cube"></i>
+                RerHat
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://distrowatch.com/" target="_blank" >
+                <i class="icon icon-lg icon-list-ol"></i>
+                Linux排行
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://nginx.org/" target="_blank" >
+                <i class="icon icon-lg icon-google"></i>
+                Nginx
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.gnu.org/licenses/licenses.html" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GPL
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/more"  >
+                <i class="icon icon-lg icon-codepen"></i>
+                更多
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-address-card"></i>
+                关于
+				
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx系列(6)模块</div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx系列(6)模块</h1>
+       
+    </div>
+
+    
+
+<div id="player8" class="aplayer"></div>
+</header>
+
+
+<div class="container body-wrap">
+    
+<link rel="stylesheet" href="/css/APlayer.min.css?v=1.7.2">
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#模块文档"><span class="post-toc-number">1.</span> <span class="post-toc-text">模块文档</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主功能"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">主功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP核心模块"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">HTTP核心模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动态加载模块功能"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">动态加载模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Dyups模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Dyups模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SPDY模块功能"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">SPDY模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#独立进程模块功能"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">独立进程模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#backtrace模块功能"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">backtrace模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#concat模块功能"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">concat模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#trim-filter模块功能"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">trim filter模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Upstream域名解析模块功能"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">Upstream域名解析模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#headers模块功能"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">headers模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#footer-filter模块功能"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">footer filter模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#limit-req模块功能"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">limit_req模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#limit-upstream-tries功能"><span class="post-toc-number">1.14.</span> <span class="post-toc-text">limit upstream tries功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#log模块功能"><span class="post-toc-number">1.15.</span> <span class="post-toc-text">log模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#reqstat模块功能"><span class="post-toc-number">1.16.</span> <span class="post-toc-text">reqstat模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lua模块-v0-7-19"><span class="post-toc-number">1.17.</span> <span class="post-toc-text">lua模块(v0.7.19)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ssl模块功能"><span class="post-toc-number">1.18.</span> <span class="post-toc-text">ssl模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stub-status模块功能"><span class="post-toc-number">1.19.</span> <span class="post-toc-text">stub_status模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TFS模块功能"><span class="post-toc-number">1.20.</span> <span class="post-toc-text">TFS模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sysguard模块功能"><span class="post-toc-number">1.21.</span> <span class="post-toc-text">sysguard模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一致性hash模块功能"><span class="post-toc-number">1.22.</span> <span class="post-toc-text">一致性hash模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#session-sticky模块功能"><span class="post-toc-number">1.23.</span> <span class="post-toc-text">session_sticky模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#健康检查模块功能"><span class="post-toc-number">1.24.</span> <span class="post-toc-text">健康检查模块功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后端长连接超时功能"><span class="post-toc-number">1.25.</span> <span class="post-toc-text">后端长连接超时功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#变量"><span class="post-toc-number">1.26.</span> <span class="post-toc-text">变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#debug-pool模块"><span class="post-toc-number">1.27.</span> <span class="post-toc-text">debug pool模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#slab-stat模块"><span class="post-toc-number">1.28.</span> <span class="post-toc-text">slab stat模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#异步openssl模块"><span class="post-toc-number">1.29.</span> <span class="post-toc-text">异步openssl模块</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Nginx系列6"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx系列(6)模块</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-03-16 10:46:12" datetime="2018-03-16T02:46:12.000Z"  itemprop="datePublished">2018-03-16</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><font color="#0099ff" size="12" face="黑体">Nginx模块(一)</font><br>此文摘至<a href="http://tengine.taobao.org/" target="_blank" rel="noopener">Tengine</a></p>
+<blockquote>
+</blockquote>
+<p>Tengine是由淘宝网发起的Web服务器项目。它在Nginx的基础上，针对大访问量网站的需求，添加了很多高级功能和特性。<br>Tengine的性能和稳定性已经在大型的网站如淘宝网，天猫商城等得到了很好的检验。<br>它的最终目标是打造一个高效、稳定、安全、易用的Web平台。</p>
+<p>从2011年12月开始，Tengine成为一个开源项目，Tengine团队在积极地开发和维护着它。<br>Tengine团队的核心成员来自于淘宝、搜狗等互联网企业。<br>Tengine完全兼容Nginx，因此可以参照Tengine的方式来配置Nginx。</p>
+<blockquote>
+<p>可以说是Tengine是Nginx的分支 <code>备注</code></p>
+</blockquote>
+<p><a href="http://nginx.org/en/docs/" target="_blank" rel="noopener">Nginx新增的模块</a></p>
+<p><a href="http://nginx.org/en/docs/varindex.html" target="_blank" rel="noopener">Nginx新增的变量</a></p>
+<p><a href="http://nginx.org/en/docs/dirindex.html" target="_blank" rel="noopener">Nginx新增的目录</a></p>
+<p><a href="http://tengine.taobao.org/nginx_docs/cn/docs/" target="_blank" rel="noopener">Tengine翻译</a></p>
+<hr>
+<h1 id="模块文档"><a href="#模块文档" class="headerlink" title="模块文档"></a>模块文档</h1><h2 id="主功能"><a href="#主功能" class="headerlink" title="主功能"></a><a href="http://tengine.taobao.org/document_cn/core_cn.html" target="_blank" rel="noopener">主功能</a></h2><h2 id="HTTP核心模块"><a href="#HTTP核心模块" class="headerlink" title="HTTP核心模块"></a><a href="http://tengine.taobao.org/document_cn/http_core_cn.html" target="_blank" rel="noopener">HTTP核心模块</a></h2><h2 id="动态加载模块功能"><a href="#动态加载模块功能" class="headerlink" title="动态加载模块功能"></a><a href="http://tengine.taobao.org/document_cn/dso_cn.html" target="_blank" rel="noopener">动态加载模块功能</a></h2><h2 id="Dyups模块"><a href="#Dyups模块" class="headerlink" title="Dyups模块"></a><a href="http://tengine.taobao.org/document_cn/http_dyups_cn.html" target="_blank" rel="noopener">Dyups模块</a></h2><h2 id="SPDY模块功能"><a href="#SPDY模块功能" class="headerlink" title="SPDY模块功能"></a><a href="http://tengine.taobao.org/document_cn/ngx_http_spdy_module_cn.html" target="_blank" rel="noopener">SPDY模块功能</a></h2><h2 id="独立进程模块功能"><a href="#独立进程模块功能" class="headerlink" title="独立进程模块功能"></a><a href="http://tengine.taobao.org/document_cn/proc_cn.html" target="_blank" rel="noopener">独立进程模块功能</a></h2><h2 id="backtrace模块功能"><a href="#backtrace模块功能" class="headerlink" title="backtrace模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_backtrace_cn.html" target="_blank" rel="noopener">backtrace模块功能</a></h2><h2 id="concat模块功能"><a href="#concat模块功能" class="headerlink" title="concat模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_concat_cn.html" target="_blank" rel="noopener">concat模块功能</a></h2><h2 id="trim-filter模块功能"><a href="#trim-filter模块功能" class="headerlink" title="trim filter模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_trim_filter_cn.html" target="_blank" rel="noopener">trim filter模块功能</a></h2><h2 id="Upstream域名解析模块功能"><a href="#Upstream域名解析模块功能" class="headerlink" title="Upstream域名解析模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_upstream_dynamic_cn.html" target="_blank" rel="noopener">Upstream域名解析模块功能</a></h2><h2 id="headers模块功能"><a href="#headers模块功能" class="headerlink" title="headers模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_headers_cn.html" target="_blank" rel="noopener">headers模块功能</a></h2><h2 id="footer-filter模块功能"><a href="#footer-filter模块功能" class="headerlink" title="footer filter模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_footer_filter_cn.html" target="_blank" rel="noopener">footer filter模块功能</a></h2><h2 id="limit-req模块功能"><a href="#limit-req模块功能" class="headerlink" title="limit_req模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_limit_req_cn.html" target="_blank" rel="noopener">limit_req模块功能</a></h2><h2 id="limit-upstream-tries功能"><a href="#limit-upstream-tries功能" class="headerlink" title="limit upstream tries功能"></a><a href="http://tengine.taobao.org/document_cn/ngx_limit_upstream_tries_cn.html" target="_blank" rel="noopener">limit upstream tries功能</a></h2><h2 id="log模块功能"><a href="#log模块功能" class="headerlink" title="log模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_log_cn.html" target="_blank" rel="noopener">log模块功能</a></h2><h2 id="reqstat模块功能"><a href="#reqstat模块功能" class="headerlink" title="reqstat模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_reqstat_cn.html" target="_blank" rel="noopener">reqstat模块功能</a></h2><h2 id="lua模块-v0-7-19"><a href="#lua模块-v0-7-19" class="headerlink" title="lua模块(v0.7.19)"></a><a href="https://github.com/chaoslawful/lua-nginx-module/blob/master/README.markdown" target="_blank" rel="noopener">lua模块(v0.7.19)</a></h2><h2 id="ssl模块功能"><a href="#ssl模块功能" class="headerlink" title="ssl模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_ssl_cn.html" target="_blank" rel="noopener">ssl模块功能</a></h2><h2 id="stub-status模块功能"><a href="#stub-status模块功能" class="headerlink" title="stub_status模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_stub_status_cn.html" target="_blank" rel="noopener">stub_status模块功能</a></h2><h2 id="TFS模块功能"><a href="#TFS模块功能" class="headerlink" title="TFS模块功能"></a><a href="https://github.com/alibaba/nginx-tfs/blob/master/ReadMe.markdown" target="_blank" rel="noopener">TFS模块功能</a></h2><h2 id="sysguard模块功能"><a href="#sysguard模块功能" class="headerlink" title="sysguard模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_sysguard_cn.html" target="_blank" rel="noopener">sysguard模块功能</a></h2><h2 id="一致性hash模块功能"><a href="#一致性hash模块功能" class="headerlink" title="一致性hash模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_upstream_consistent_hash_cn.html" target="_blank" rel="noopener">一致性hash模块功能</a></h2><h2 id="session-sticky模块功能"><a href="#session-sticky模块功能" class="headerlink" title="session_sticky模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_upstream_session_sticky_cn.html" target="_blank" rel="noopener">session_sticky模块功能</a></h2><h2 id="健康检查模块功能"><a href="#健康检查模块功能" class="headerlink" title="健康检查模块功能"></a><a href="http://tengine.taobao.org/document_cn/http_upstream_check_cn.html" target="_blank" rel="noopener">健康检查模块功能</a></h2><h2 id="后端长连接超时功能"><a href="#后端长连接超时功能" class="headerlink" title="后端长连接超时功能"></a><a href="http://tengine.taobao.org/document_cn/http_upstream_keepalive_timeout_cn.html" target="_blank" rel="noopener">后端长连接超时功能</a></h2><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a><a href="http://tengine.taobao.org/document_cn/variables_cn.html" target="_blank" rel="noopener">变量</a></h2><h2 id="debug-pool模块"><a href="#debug-pool模块" class="headerlink" title="debug pool模块"></a><a href="http://tengine.taobao.org/document_cn/ngx_debug_pool_cn.html" target="_blank" rel="noopener">debug pool模块</a></h2><h2 id="slab-stat模块"><a href="#slab-stat模块" class="headerlink" title="slab stat模块"></a><a href="http://tengine.taobao.org/document_cn/ngx_slab_stat_cn.html" target="_blank" rel="noopener">slab stat模块</a></h2><h2 id="异步openssl模块"><a href="#异步openssl模块" class="headerlink" title="异步openssl模块"></a><a href="http://tengine.taobao.org/document_cn/ngx_http_ssl_asynchronous_mode_cn.html" target="_blank" rel="noopener">异步openssl模块</a></h2><hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-03-28T07:35:36.632Z" itemprop="dateUpdated">2018-03-28 15:35:36</time>
+</span><br>
+
+
+        
+        这里可以写作者留言.<a href="/2018/03/16/Nginx系列6/" target="_blank" rel="external">http://oleaster.cn/2018/03/16/Nginx系列6/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://oleaster.cn">
+            <img src="/img/avatar.jpg" alt="Q·Man">
+            Q·Man
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/16/Nginx系列6/&title=《Nginx系列(6)模块》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/16/Nginx系列6/&title=《Nginx系列(6)模块》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/16/Nginx系列6/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(6)模块》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/16/Nginx系列6/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/16/Nginx系列6/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/03/16/Nginx系列7/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Nginx系列(7)第三方模块</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/03/16/Nginx系列5/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Nginx系列(5)配置详解</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'true' == 'true',
+            appId: "6rQLaNUqzbdwWsUWf1nYcyqO-gzGzoHsz",
+            appKey: "7zLbzdLttc8RFYE01xaflU8C",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script> 
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/demo1.js"></script>
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    </div>
+    <div class="bottom">
+        <p><span>
+		
+		Powered by Q·Man
+		
+		
+		&copy; 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备1234556号-1</a>
+                	
+            </span>
+			 
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/03/16/Nginx系列6/&title=《Nginx系列(6)模块》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/03/16/Nginx系列6/&title=《Nginx系列(6)模块》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/03/16/Nginx系列6/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx系列(6)模块》 — Jerry's Bolg&url=http://oleaster.cn/2018/03/16/Nginx系列6/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/03/16/Nginx系列6/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://oleaster.cn/2018/03/16/Nginx系列6/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

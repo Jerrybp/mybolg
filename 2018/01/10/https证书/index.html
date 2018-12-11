@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Certbot免费https证书 | Jerry&#39;s Bolg | 2B青年欢乐多</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="HTTP">
+    <meta name="description" content="Certbot免费https证书 Certbot 的官方网站是 https://certbot.eff.org/  当前工作目录为 /root  1.获取certbot123wget https://dl.eff.org/certbot-autochmod a+x certbot-auto./certbot-auto  执行自动安装会下载和安装需要的环境组件等，总之我们执行就可以，遇到需要安装与否">
+<meta name="keywords" content="HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Certbot免费https证书">
+<meta property="og:url" content="http://oleaster.cn/2018/01/10/https证书/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Bolg">
+<meta property="og:description" content="Certbot免费https证书 Certbot 的官方网站是 https://certbot.eff.org/  当前工作目录为 /root  1.获取certbot123wget https://dl.eff.org/certbot-autochmod a+x certbot-auto./certbot-auto  执行自动安装会下载和安装需要的环境组件等，总之我们执行就可以，遇到需要安装与否">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-21T09:30:05.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Certbot免费https证书">
+<meta name="twitter:description" content="Certbot免费https证书 Certbot 的官方网站是 https://certbot.eff.org/  当前工作目录为 /root  1.获取certbot123wget https://dl.eff.org/certbot-autochmod a+x certbot-auto./certbot-auto  执行自动安装会下载和安装需要的环境组件等，总之我们执行就可以，遇到需要安装与否">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+	
+	
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Q·Man</h5>
+          <a href="mailto:pinggrubby@hotmail.com" title="pinggrubby@hotmail.com" class="mail">pinggrubby@hotmail.com</a>
+			<h6 class="subtitle">
+				2B青年欢乐多
+			</h6>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章列表
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类目
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.kernel.org/" target="_blank" >
+                <i class="icon icon-lg icon-linux"></i>
+                Linux Kernel
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.centos.org/" target="_blank" >
+                <i class="icon icon-lg icon-server"></i>
+                Centos
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.debian.org/" target="_blank" >
+                <i class="icon icon-lg icon-tint"></i>
+                Debian
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.ubuntu.com/index_kylin" target="_blank" >
+                <i class="icon icon-lg icon-braille"></i>
+                Ubuntu
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.redhat.com/zh" target="_blank" >
+                <i class="icon icon-lg icon-cube"></i>
+                RerHat
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://distrowatch.com/" target="_blank" >
+                <i class="icon icon-lg icon-list-ol"></i>
+                Linux排行
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://nginx.org/" target="_blank" >
+                <i class="icon icon-lg icon-google"></i>
+                Nginx
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.gnu.org/licenses/licenses.html" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GPL
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/more"  >
+                <i class="icon icon-lg icon-codepen"></i>
+                更多
+				
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-address-card"></i>
+                关于
+				
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Certbot免费https证书</div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Certbot免费https证书</h1>
+       
+    </div>
+
+    
+
+<div id="player8" class="aplayer"></div>
+</header>
+
+
+<div class="container body-wrap">
+    
+<link rel="stylesheet" href="/css/APlayer.min.css?v=1.7.2">
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Certbot免费https证书"><span class="post-toc-number">1.</span> <span class="post-toc-text">Certbot免费https证书</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-获取certbot"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1.获取certbot</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-停止nginx"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2.停止nginx</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-生成证书"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3.生成证书</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-查看生成的证书"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">4.查看生成的证书</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-在nginx配置证书"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">5.在nginx配置证书</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-启动nginx"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">6.启动nginx</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-https证书"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Certbot免费https证书</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-10 10:46:12" datetime="2018-01-10T02:46:12.000Z"  itemprop="datePublished">2018-01-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Web/">Web</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Certbot免费https证书"><a href="#Certbot免费https证书" class="headerlink" title="Certbot免费https证书"></a>Certbot免费https证书</h1><hr>
+<p>Certbot 的官方网站是 <a href="https://certbot.eff.org/" target="_blank" rel="noopener">https://certbot.eff.org/</a></p>
+<blockquote>
+<p>当前工作目录为 /root</p>
+</blockquote>
+<h2 id="1-获取certbot"><a href="#1-获取certbot" class="headerlink" title="1.获取certbot"></a>1.获取certbot</h2><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.eff.org/certbot-auto</span><br><span class="line">chmod a+x certbot-auto</span><br><span class="line">./certbot-auto</span><br></pre></td></tr></table></figure>
+</code></pre><blockquote>
+<p><em>执行自动安装会下载和安装需要的环境组件等，总之我们执行就可以，遇到需要安装与否的输入y后回车。</em></p>
+</blockquote>
+<h2 id="2-停止nginx"><a href="#2-停止nginx" class="headerlink" title="2.停止nginx"></a>2.停止nginx</h2><blockquote>
+<p>service nginx stop</p>
+</blockquote>
+<h2 id="3-生成证书"><a href="#3-生成证书" class="headerlink" title="3.生成证书"></a>3.生成证书</h2><blockquote>
+<p>(如果后期生成报错,先删除原有certbot-auto,按第一步重新下载certbot即可)<br>申请证书有两种验证方式，<br>一种是standalone，这种验证方式虽然也可以部署后，但是以后更新证书的时候需要重启 web 服务器；<br>第二种是webroot，就是在网站根目录下生成一个文件，通过访问该文件来验证，不需要重启 web 服务器。<br>第一种命令：./certbot-auto certonly –standalone -d example.com -d <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a><br>第二种命令：./certbot-auto certonly –webroot -w /var/www/example -d example.com -d <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> -w /var/www/baidu -d baidu.com -d <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br><em>（/var/www/example是网站的目录）使用-d追加多个域名</em><br>A - 单域名<br>./certbot-auto certonly –email <a href="mailto:admin@qq.com" target="_blank" rel="noopener">admin@qq.com</a> –agree-tos –webroot -w /var/www/example -d <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a><br>B - 多域名<br>./certbot-auto certonly –email <a href="mailto:admin@qq.com" target="_blank" rel="noopener">admin@qq.com</a> –agree-tos –webroot -w /var/www/example -d example.com -d <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> -w /var/www/example1 -d example1.com -d <a href="http://www.example1.com" target="_blank" rel="noopener">www.example1.com</a></p>
+</blockquote>
+<h2 id="4-查看生成的证书"><a href="#4-查看生成的证书" class="headerlink" title="4.查看生成的证书"></a>4.查看生成的证书</h2><blockquote>
+<p>ls /etc/letsencrypt/live/<br>我们可以在上面生成完成看到证书被放到/etc/letsencrypt/live/example/目录中，这个我们根据自己网址的文档区别。里面可以看到有cert.pem 、chain.pem 、 fullchain.pem  、privkey.pem四个文件。</p>
+</blockquote>
+<h2 id="5-在nginx配置证书"><a href="#5-在nginx配置证书" class="headerlink" title="5.在nginx配置证书"></a>5.在nginx配置证书</h2><blockquote>
+<p>ssl_certificate /etc/letsencrypt/live/cdw.me/fullchain.pem;#证书位置<br> ssl_certificate_key /etc/letsencrypt/live/cdw.me/privkey.pem;# 私钥位置<br>在Nginx站点配置文件中添加443端口server，然后设置SSL证书文件。设置后重启nginx看看是否成功，如果错误会有提示的。最后收尾工作，我们是否需要将所有的非HTTP跳转到HTTPS。</p>
+</blockquote>
+<h2 id="6-启动nginx"><a href="#6-启动nginx" class="headerlink" title="6.启动nginx"></a>6.启动nginx</h2><blockquote>
+<p>service nginx start</p>
+</blockquote>
+<hr>
+<ol>
+<li><p>编写更新脚本renew-cert.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># 停止nginx</span><br><span class="line">service nginx stop</span><br><span class="line"># 续签</span><br><span class="line"># --force-renew 强制更新</span><br><span class="line">/root/certbot-auto renew --force-renew </span><br><span class="line"># 启动nginx</span><br><span class="line">service nginx start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>a+x renew-cert.sh</p>
+</li>
+<li><p>自动更新https证书(crontab)</p>
+<blockquote>
+<p>crontab -l  定时任务列表<br>crontab -u root -e (-u root 表示哪个用户的定时任务)<br>添加: * * * * /3 * ./renew-cert.sh (表示每3个月执行一次)<br>在crontab文件中如何输入需要执行的命令和时间。该文件中每行都包括六个域，其中前五个域是指定命令被执行的时间，最后一个域是要被执行的命令。每个域之间使用空格或者制表符分隔。格式如下：<br>minute hour day-of-month month-of-year day-of-week commands<br>合法值 00-59 00-23 01-31 01-12 0-6 (0 is sunday)<br><code>除了数字还有几个个特殊的符号就是&quot;*&quot;、&quot;/&quot;和&quot;-&quot;、&quot;,&quot;，*代表所有的取值范围内的数字，&quot;/&quot;代表每的意思,&quot;/5&quot;表示每5个单位，&quot;-&quot;代表从某个数字到某个数字,&quot;,&quot;分开几个离散的数字。</code><br>或者手动 ./certbot-auto renew –dry-run</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<p><strong>Let’s Encrypt 生成的免费证书为3个月时间，但是我们可以无限次续签证书</strong></p>
+<hr>
+<p>补充说明:<br>密钥对,公钥,证书,私钥,jks,keystore,truststore,cer,pfx名词说明<br><strong>密钥:</strong><br>我理解是公钥+私钥的统称。</p>
+<p><strong>密钥对：</strong><br>公钥(证书)和私钥成对存在。通信双方各持有自己的私钥和对方的公钥。自己的私钥需密切保护，而公钥是公开给对方的。在windows下，单独存在的公钥一般是后缀为.cer的文件<br>A用自己的私钥对数据加密，发给B，B用A提供的公钥解密。同理B用自己的私钥对数据加密，发送给A后，A用B的公钥解开。<br>公钥的两个用途：<br>1。验证对方身份：防止其他人假冒对方发送数据给你。<br>2。解密。<br>私钥的两个用途：<br>1。表明自己身份：除非第三方有你私钥，否则无法假冒你发送数据数据给对方。<br>2。加密。</p>
+<p><strong>jks(Java key store)：</strong><br>java用的存储密钥的容器。可以同时容纳n个公钥或私钥，后缀一般是.jks或者.keystore或.truststore等，千奇百怪。不管什么后缀，它就是一个容器，各个公司或机构叫法不同而已。比如把只包含”受信任的公钥”的容器存成.truststore文件等。<br>用jdk\bin目录下的keytool.exe对其进行查看，导入，导出，删除，修改密码等各种操作。可以对jks容器加密码，输入正确才可以操作此容器中密钥。还有一个密码的概念与上者不同，是jks中存储着的私钥的密码，通常是绝密的。意思就是一个keystore(.jks)文件通常里面会装有公钥和私钥，keystore本身有一个密码，输入这个密码可以导出公钥为cer文件，而还有一个私钥是看不到的，想看私钥要输入另一个密码。意思是这样，不一定有x相应的命令对应。</p>
+<p><strong>pfx：</strong><br>和jks功能相同但文件格式不同，pfx是浏览器用的。<br>可以用一些工具程序把pfx转化成jks格式供java程序使用(如银行只提供了pfx，但是我们想用httpclient模拟浏览器自动访问时)。据说IE导出的pfx格式不标准，转化jks时往往报错，可以尝试用Netscape Navigator导入再导出，然后再转化。碰到过这样的情况。<br>常见的几种https系统的访问。经https协议的数据经过加密传输，防止第三方监听，冒充和篡改。<br>1.不需要用户做任何操作，比如<a href="https://www.verisign.com/" target="_blank" rel="noopener">https://www.verisign.com/</a><br>这是因为此公钥是合法的(公钥是可信任的机构颁发，和实际域名吻合，而且没有到期)。用IE访问时空白处点右键可以查看公钥信息。<br>2.https的页面会弹出公钥确认提示<br>公钥不合法(不是可信任的机构颁发，和实际域名不吻合，已到期)，但用户点“是”即表示忽略危险，继续访问。<br>3.需要往浏览器倒入一个文件才可访问的<br>一般是银行在线交易等特别需要安全的场合，站方(银行)需要验证访客身份(如要确认必须是已注册的网银商户)，需要在浏览器中导入含有访客私钥的pfx文件。</p>
+<p>生成jks：<br>在银行没有提供jks文件的情况下对帐，需要自己生成jks<br>对于1，2类https网站，如果java程序访问此地址时在jre默认的信任库中找不到对方证书的颁发机构，则会抛出安全方面的异常。所以要将站方公钥存进一个jks，并在环境变量中设定，表明信任此库中的公钥，才可以正常访问。<br>我是用现成的make_jks的工具类在程序中读取<a href="https://xxxx地址，程序自动抓取出银行公钥并存进一个jks文件。" target="_blank" rel="noopener">https://xxxx地址，程序自动抓取出银行公钥并存进一个jks文件。</a><br>在浏览器中查看站方公钥时，把公钥导出(一般是cer后缀)，然后用keytool.exe手工将此cer导入一个jks也可以<br>以上1，2类https网站，仅仅是用到了公钥的“验证对方身份”功能。对于第3种https网站，也可以找到现成的程序把pfx直接转成jks。既然动用了pfx，一般是把公钥的两个用途和私钥的两个用途都用起来。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-03-21T09:30:05.836Z" itemprop="dateUpdated">2018-03-21 17:30:05</time>
+</span><br>
+
+
+        
+        这里可以写作者留言.<a href="/2018/01/10/https证书/" target="_blank" rel="external">http://oleaster.cn/2018/01/10/https证书/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://oleaster.cn">
+            <img src="/img/avatar.jpg" alt="Q·Man">
+            Q·Man
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/01/10/https证书/&title=《Certbot免费https证书》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/01/10/https证书/&title=《Certbot免费https证书》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/01/10/https证书/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Certbot免费https证书》 — Jerry's Bolg&url=http://oleaster.cn/2018/01/10/https证书/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/01/10/https证书/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/02/01/SSH远程登录1/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">SSH原理与运用（一）远程登录</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/01/08/文章标题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">这是一个标题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'true' == 'true',
+            appId: "6rQLaNUqzbdwWsUWf1nYcyqO-gzGzoHsz",
+            appKey: "7zLbzdLttc8RFYE01xaflU8C",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script> 
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/demo1.js"></script>
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    </div>
+    <div class="bottom">
+        <p><span>
+		
+		Powered by Q·Man
+		
+		
+		&copy; 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备1234556号-1</a>
+                	
+            </span>
+			 
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://oleaster.cn/2018/01/10/https证书/&title=《Certbot免费https证书》 — Jerry's Bolg&pic=http://oleaster.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://oleaster.cn/2018/01/10/https证书/&title=《Certbot免费https证书》 — Jerry's Bolg&source=一座城" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://oleaster.cn/2018/01/10/https证书/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Certbot免费https证书》 — Jerry's Bolg&url=http://oleaster.cn/2018/01/10/https证书/&via=http://oleaster.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://oleaster.cn/2018/01/10/https证书/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://oleaster.cn/2018/01/10/https证书/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
